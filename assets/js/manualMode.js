@@ -1,7 +1,6 @@
 function manualMode() {
+    document.getElementById("auto-mode").toggleAttribute("hidden");
     document.getElementById("manual-mode").removeAttribute("hidden");
-    document.getElementById("auto-mode").setAttribute("hidden");
-    document.getElementById("opencloseSidebar").innerHTML = "&#10095;";
-
-
+    
+    document.getElementById("manual").setAttribute("disabled");
 }

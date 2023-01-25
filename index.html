@@ -22,20 +22,17 @@
 
         <h3>STROBE SYNC MODE</h3>
 
-        <button id="auto" class="auto-btn">AUTO</button>
+        <button id="auto" class="auto-btn" onclick="autoMode()">AUTO</button>
         <button id="manual" class="manual-btn" onclick="manualMode()">MANUAL</button>
 
         <hr>
 
-        <div class="auto-mode" hidden>
+        <div id="auto-mode">
             auto mode
         </div>
         
-        <div class="manual-mode" hidden>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+        <div id="manual-mode" hidden>
+            manual mode
         </div>
 
         <!--<a href="#">About</a>
@@ -48,6 +45,8 @@
         <img src="assets\img\logo-V2\logo-horizontal-white.png" id="index-logo" class="index-logo" hidden>
     </div>
 </body>
+<!-- auto mode script -->
+<script src="assets\js\autoMode.js"></script>
 <!-- manual mode script -->
 <script src="assets\js\manualMode.js"></script>
 <!-- fullscreen button script -->
