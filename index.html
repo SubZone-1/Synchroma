@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Daniel Mogildea">
+    <meta name="description" content="Audio visualizer that displays different visual changes in the background of the page, 
+    in sync with the frequencies picked up by the microphone of the device on which the platform is running.">
+    <title>Synchroma: Audio-Synced Strobe Lightinhg</title>
+    <link rel="icon" href="assets\img\logo-V2\symbol.png">
+
+    <link rel="stylesheet" href="assets\css\app.css">
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        <div id="sidebar-logo" class="sidebar-logo">
+            <img src="assets\img\logo-V2\logo-horizontal-black.png">
+        </div>
+
+        <hr>
+
+        <h3>STROBE SYNC MODE</h3>
+
+        <button id="auto" class="auto-btn">AUTO</button>
+        <button id="manual" class="manual-btn" onclick="manualMode()">MANUAL</button>
+
+        <hr>
+
+        <div class="auto-mode" hidden>
+            auto mode
+        </div>
+        
+        <div class="manual-mode" hidden>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <!--<a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>-->
+    </div>
+    <div id="main">
+        <button id="opencloseSidebar" class="opencloseSidebar" onclick="closeSidebar();activateLogo()">&#10094;</button>
+        <img src="assets\img\logo-V2\logo-horizontal-white.png" id="index-logo" class="index-logo" hidden>
+    </div>
+</body>
+<!-- manual mode script -->
+<script src="assets\js\manualMode.js"></script>
+<!-- fullscreen button script -->
+<script src="assets\js\fullscreen-btn.js"></script>
+<!-- open and close sidebar script -->
+<script src="assets\js\opencloseSidebar.js"></script>
+</html>

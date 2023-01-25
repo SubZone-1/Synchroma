@@ -1,0 +1,294 @@
+/* Fonts
+------------------------------*/
+@font-face {
+  font-family: Roboto-Black;
+  src: url(Roboto-Black.ttf);
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-BlackItalic;
+  src: url(Roboto-BlackItalic.ttf);
+  font-weight: 900;
+  font-style: italic;
+}
+@font-face {
+  font-family: Roboto-Bold;
+  src: url(Roboto-Bold.ttf);
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-BoldItalic;
+  src: url(Roboto-BoldItalic.ttf);
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: Roboto-Medium;
+  src: url(Roboto-Medium.ttf);
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-MediumItalic;
+  src: url(Roboto-MediumItalic.ttf);
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: Roboto-Regular;
+  src: url(Roboto-Regular.ttf);
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-Italic;
+  src: url(Roboto-Italic.ttf);
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-Light;
+  src: url(Roboto-Light.ttf);
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-LightItalic;
+  src: url(Roboto-LightItalic.ttf);
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: Roboto-Thin;
+  src: url(Roboto-Thin.ttf);
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: Roboto-ThinItalic;
+  src: url(Roboto-ThinItalic.ttf);
+  font-weight: 100;
+  font-style: italic;
+}
+
+/* General Styles
+------------------------------*/
+body {
+  background-color: #000000;
+}
+
+/* Logo Styles
+------------------------------*/
+.index-logo {
+  width: 300px;
+  float: right;  
+  opacity: 0.4;
+}
+.index-logo:hover {
+  opacity: 1;
+}
+
+.sidebar-logo {
+  text-align: center;
+}
+.sidebar-logo img {
+  width: 300px;
+}
+
+/* Sidebar
+------------------------------*/
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 400px; /* 400px width - change with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #D3D3D3;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 5px; /* Place content 5px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* Sidebar general elements */
+
+.sidebar h3 {
+  font-family: Roboto-Thin;
+  color: #575F6B;
+  text-align: center;
+}
+
+.sidebar hr {
+  width: 375px;
+  height: 0px;
+  background-color: #575F6B;
+  border: 1px solid #575F6B;
+}
+.sidebar hr:nth-child(6) {
+  width: 375px;
+  height: 0px;
+  margin-top: 25px;
+  background-color: #575F6B;
+  border: 1px solid #575F6B;
+}
+
+/* Links */
+.sidebar a {
+  font-family: Roboto-Regular;
+  font-size: 25px;
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  color: #575F6B;
+  display: block;
+  transition: 0.3s;
+}.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Auto strobe mode button */
+.auto-btn {
+  width:  150px;
+  height:  40px;
+  font-family: Roboto-Bold;
+  font-size: 20px;
+  margin-left: 35px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #575F6B;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: none;
+  transition:  transform .1s;
+} .auto-btn:hover {
+  color: #f98f26;
+  transform: scale(1.125);
+}
+
+/* Manual strobe mode button */
+.manual-btn {
+  width:  150px;
+  height:  40px;
+  font-family: Roboto-Bold;
+  font-size: 20px;
+  margin-left: 26px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #575F6B;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: none;
+  transition:  transform .1s;
+} .manual-btn:hover {
+  color: #f98f26;
+  transform: scale(1.125);
+}
+
+/* Button used to open and close the sidebar */
+.opencloseSidebar {
+  width:  40px;
+  height:  40px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #000000;
+  opacity: 0.5;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: none;
+  transition:  transform .1s;
+}.opencloseSidebar:hover {
+  background-color: #D3D3D3;
+  opacity: 1;
+  transform: scale(1.125);
+}
+
+/* Style page content - push the page content to the right when the side navigation is opened */
+#main {
+  margin-left: 400px;
+  transition: margin-left .5s; /* transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+/* Fullscreen Button 
+------------------------------*/
+#fullscreen-button {
+  position: absolute;
+  bottom:  25px;
+  right:  25px;
+  background: #ffffff;
+  border:  0;
+  width:  40px;
+  height:  40px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition:  transform .1s;
+  font-size: 0;
+  opacity: 0.5;
+  pointer-events: auto;
+  cursor:  pointer;
+}
+#fullscreen-button:hover {
+  background-color: #D3D3D3;
+  opacity: 1;
+  transform: scale(1.125);
+}
+#fullscreen-button span {
+  width:  4px;
+  height:  4px;
+  border-top:  2.5px solid #000000;
+  border-left:  2.5px solid #000000;
+  position: absolute;
+  outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-perspective: 1000;
+  transition:  .3s;
+  transition-delay: .1s;
+}
+#fullscreen-button span:nth-child(1) {
+  top: 11px;
+  left: 11px;
+}
+#fullscreen-button span:nth-child(2) {
+  top: 11px;
+  left: 22px;
+  transform: rotate(90deg);
+}
+#fullscreen-button span:nth-child(3) {
+  top: 22px;
+  left: 11px;
+  transform: rotate(-90deg);
+}
+#fullscreen-button span:nth-child(4) {
+  top: 22px;
+  left: 22px;
+  transform: rotate(-180deg);
+}
+
+/* Fullscreen True
+------------------------------*/
+[fullscreen] #fullscreen-button span:nth-child(1) {
+  top: 22px;
+  left: 22px;
+}
+[fullscreen] #fullscreen-button span:nth-child(2) {
+  top: 22px;
+  left: 11px;
+}
+[fullscreen] #fullscreen-button span:nth-child(3) {
+  top: 11px;
+  left: 22px;
+}
+[fullscreen] #fullscreen-button span:nth-child(4) {
+  top: 11px;
+  left: 11px;
+}
