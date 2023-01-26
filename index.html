@@ -14,38 +14,41 @@
 </head>
 <body>
     <div id="sidebar" class="sidebar">
-        <div id="sidebar-logo" class="sidebar-logo">
-            <img src="assets\img\logo-V2\logo-horizontal-black.png">
-        </div>
-
-        <hr>
-
-        <h3 class="mode-label">STROBE SYNC MODE</h3>
-
-        <button id="auto" class="auto-btn selected" onclick="autoMode()">AUTO</button>
-        <button id="manual" class="manual-btn" onclick="manualMode()">MANUAL</button>
-
-        <hr>
-
-        <div id="auto-mode" class="auto-mode">
-            <div id="frequency-range-focus" class="frequency-range-focus">
-                <h5>FREQUENCY RANGE FOCUS</h5>
-
-                <button id="low" class="low-btn selected" onclick="low_Btn()">LOW</button>
-                <button id="mid" class="mid-btn" onclick="mid_Btn()">MID</button>
-                <button id="high" class="high-btn" onclick="high_Btn()">HIGH</button>
-                <button id="master" class="master-btn" onclick="master_Btn()">MASTER</button>
+        <div id="sidebar-content" class="sidebar-content">
+            <div id="sidebar-logo" class="sidebar-logo">
+                <img src="assets\img\logo-V2\logo-horizontal-black.png">
             </div>
+
+            <hr>
+
+            <h3 class="mode-label">STROBE SYNC MODE</h3>
+
+            <button id="auto" class="auto-btn selected" onclick="autoMode()">AUTO</button>
+            <button id="manual" class="manual-btn" onclick="manualMode()">MANUAL</button>
+
+            <hr>
+
+            <div id="auto-mode" class="auto-mode">
+                <div id="frequency-range-focus" class="frequency-range-focus">
+                    <h5>FREQUENCY RANGE FOCUS</h5>
+
+                    <button id="low" class="low-btn selected" onclick="low_Btn()">LOW</button>
+                    <button id="mid" class="mid-btn" onclick="mid_Btn()">MID</button>
+                    <button id="high" class="high-btn" onclick="high_Btn()">HIGH</button>
+                    <button id="master" class="master-btn" onclick="master_Btn()">MASTER</button>
+                </div>
+            </div>
+            
+            <div id="manual-mode" class="manual-mode" hidden>
+                manual mode
+            </div>
+
+            <!--<a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>-->
         </div>
         
-        <div id="manual-mode" class="manual-mode" hidden>
-            manual mode
-        </div>
-
-        <!--<a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>-->
     </div>
     <div id="main">
         <button id="opencloseSidebar" class="opencloseSidebar" onclick="closeSidebar();activateLogo()">&#10094;</button>

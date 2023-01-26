@@ -1,5 +1,9 @@
+var sidebarContent = document.getElementById("sidebar-content");
+
 /* Set the width of the sidebar to 400px and the left margin of the page content to 425px */
 function openSidebar() {
+    sidebarContent.style.opacity = 1;
+
     let sidebarOpened = true;
 
     // set index logo as hidden when sidebar is opened
@@ -16,6 +20,8 @@ function openSidebar() {
 
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeSidebar() {
+    sidebarContent.style.opacity = 0;
+
     let sidebarOpened = false;
 
     // set index logo as visible when sidebar is closed
