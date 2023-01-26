@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Daniel Mogildea">
-    <meta name="description" content="Audio visualizer that displays different visual changes in the background of the page, 
-    in sync with the frequencies picked up by the microphone of the device on which the platform is running.">
-    <title>Synchroma: Audio-Synced Strobe Lightinhg</title>
+    <meta name="description" content="A web-based audio visualizer that displays 
+    different visual changes in the background of the page, in order to obtain a strobe light effect.">
+    <title>Synchroma: Audio-Synced Strobe Lighting</title>
     <link rel="icon" href="assets\img\logo-V2\symbol.png">
 
     <link rel="stylesheet" href="assets\css\app.css">
@@ -20,18 +20,25 @@
 
         <hr>
 
-        <h3>STROBE SYNC MODE</h3>
+        <h3 class="mode-label">STROBE SYNC MODE</h3>
 
         <button id="auto" class="auto-btn selected" onclick="autoMode()">AUTO</button>
         <button id="manual" class="manual-btn" onclick="manualMode()">MANUAL</button>
 
         <hr>
 
-        <div id="auto-mode">
-            auto mode
+        <div id="auto-mode" class="auto-mode">
+            <div id="frequency-range-focus" class="frequency-range-focus">
+                <h5>FREQUENCY RANGE FOCUS</h5>
+
+                <button id="low" class="low-btn selected" onclick="low_Btn()">LOW</button>
+                <button id="mid" class="mid-btn" onclick="mid_Btn()">MID</button>
+                <button id="high" class="high-btn" onclick="high_Btn()">HIGH</button>
+                <button id="master" class="master-btn" onclick="master_Btn()">MASTER</button>
+            </div>
         </div>
         
-        <div id="manual-mode" hidden>
+        <div id="manual-mode" class="manual-mode" hidden>
             manual mode
         </div>
 
@@ -45,6 +52,8 @@
         <img src="assets\img\logo-V2\logo-horizontal-white.png" id="index-logo" class="index-logo" hidden>
     </div>
 </body>
+<!-- frequency range focus script -->
+<script src="assets\js\frequencyRangeFocus.js"></script>
 <!-- auto mode script -->
 <script src="assets\js\autoMode.js"></script>
 <!-- manual mode script -->
