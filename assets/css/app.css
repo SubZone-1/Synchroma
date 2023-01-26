@@ -161,9 +161,14 @@ body {
   box-sizing: border-box;
   border: none;
   transition:  transform .1s;
-} .auto-btn:hover {
+  /* applies hover effects to all .auto-btn classes without .selected specified */
+} .auto-btn:not(.selected):hover {
   color: #f98f26;
   transform: scale(1.125);
+} .auto-btn.selected {
+  scale: 1.125;
+  color: #f98f26;
+  cursor: default;
 }
 
 /* Manual strobe mode button */
@@ -180,9 +185,14 @@ body {
   box-sizing: border-box;
   border: none;
   transition:  transform .1s;
-} .manual-btn:hover {
+  /* applies hover effects to all .manual-btn classes without .selected specified */
+} .manual-btn:not(.selected):hover {
   color: #f98f26;
   transform: scale(1.125);
+} .manual-btn.selected {
+  scale: 1.125;
+  color: #f98f26;
+  cursor: default;
 }
 
 /* Button used to open and close the sidebar */

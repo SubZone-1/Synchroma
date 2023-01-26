@@ -10,4 +10,7 @@ function manualMode() {
     // disable manual mode button (selected) and enable auto mode button
     manualBtn.setAttribute("disabled", "true");
     autoBtn.removeAttribute("disabled");
+
+    manualBtn.setAttribute("class", "manual-btn selected");
+    autoBtn.setAttribute("class", "auto-btn");
 }
