@@ -1,6 +1,13 @@
 function manualMode() {
-    document.getElementById("auto-mode").toggleAttribute("hidden");
+    // show manual mode
     document.getElementById("manual-mode").removeAttribute("hidden");
+    // hide auto mode
+    document.getElementById("auto-mode").setAttribute("hidden", "true");
     
-    document.getElementById("manual").setAttribute("disabled");
+    var manualBtn = document.getElementById("manual");
+    var autoBtn = document.getElementById("auto");
+
+    // disable manual mode button (selected) and enable auto mode button
+    manualBtn.setAttribute("disabled", "true");
+    autoBtn.removeAttribute("disabled");
 }
