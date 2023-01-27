@@ -91,7 +91,8 @@ body {
 }
 
 .sidebar-logo {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 .sidebar-logo img {
   width: 300px;
@@ -129,7 +130,7 @@ body {
 .sidebar hr:nth-child(6) {
   width: 375px;
   height: 0px;
-  margin-top: 25px;
+  /* margin-top: 25px; */
   margin-bottom: 25px;
   background-color: #575F6B;
   border: 1px solid #575F6B;
@@ -180,8 +181,7 @@ body {
   height:  40px;
   font-family: Roboto-Bold;
   font-size: 20px;
-  float: right;
-  margin-right: 35px;
+  margin-left: 30px;
   margin-bottom: 25px;
   cursor: pointer;
   background-color: #ffffff;
@@ -244,8 +244,7 @@ body {
 .frequency-range-focus .low-btn, .master-btn {
   margin-left: 35px;
 } .frequency-range-focus .high-btn {
-  float: right;
-  margin-right: 35px;
+  margin-left: 11px;
 }
 
 /* Button used to open and close the sidebar */
@@ -275,8 +274,10 @@ body {
 }
 
 #sidebar-content {
+  width: 400px;
+  position: absolute;
   opacity: 1;
-  transition: opacity .5s;
+  transition: opacity .4s;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
