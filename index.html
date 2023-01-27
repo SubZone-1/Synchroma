@@ -29,6 +29,15 @@
             <hr>
 
             <div id="auto-mode" class="auto-mode">
+                <div id="input-device" class="input-device">
+                    <h5>INPUT DEVICE</h5>
+
+                    <select id="select-input-device" class="select-input-device" required>
+                        <option value="" selected disabled>SELECT DEVICE</option>
+                        <option value="" class="device">&nbsp;example device</option>
+                    </select>
+                </div>
+
                 <div id="frequency-range-focus" class="frequency-range-focus">
                     <h5>FREQUENCY RANGE FOCUS</h5>
 
@@ -36,6 +45,12 @@
                     <button id="mid" class="mid-btn" onclick="mid_Btn()">MID</button>
                     <button id="high" class="high-btn" onclick="high_Btn()">HIGH</button>
                     <button id="master" class="master-btn" onclick="master_Btn()">MASTER</button>
+                </div>
+
+                <div id="detection-sensitivity" class="detection-sensitivity">
+                    <h5>DETECTION SENSITIVITY</h5>
+
+                    <input type="range" min="0" max="100" value="50" class="sens-slider" id="sens-slider">
                 </div>
             </div>
             

@@ -200,9 +200,7 @@ body {
   cursor: default;
 }
 
-/* Frequency Range Focus Elements 
-------------------------------*/
-.frequency-range-focus h5 {
+.auto-mode h5 {
   font-family: Roboto-Thin;
   color: #575F6B;
   text-align: left;
@@ -210,6 +208,51 @@ body {
   margin-bottom: 10px;
 }
 
+.manual-mode h5 {
+  font-family: Roboto-Thin;
+  color: #575F6B;
+  text-align: left;
+  margin-left: 35px;
+  margin-bottom: 10px;
+}
+
+/* Select Input Device 
+------------------------------*/
+.input-device .select-input-device:required:invalid {
+  width: 330px;
+  height: 40px;
+  margin-left: 35px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-family: Roboto-Medium;
+  font-size: 16px;
+  color: #575F6B;
+} .input-device .select-input-device:required:valid {
+  width: 330px;
+  height: 40px;
+  margin-left: 35px;
+  border-radius: 5px;
+  border: none;
+  font-family: Roboto-Medium;
+  font-size: 16px;
+  color: #575F6B;
+} 
+
+.select-input-device .device{
+  text-align: start;
+  font-family: Roboto-Regular;
+}
+
+/* Detetction Sensitivity 
+------------------------------*/
+.detection-sensitivity .sens-slider {
+  width: 330px;
+  margin-left: 35px;
+}
+
+/* Frequency Range Focus 
+------------------------------*/
 .frequency-range-focus button {
   font-family: Roboto-Bold;
   font-size: 16px;
