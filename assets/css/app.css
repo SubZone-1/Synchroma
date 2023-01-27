@@ -239,6 +239,9 @@ body {
   color: #575F6B;
 } 
 
+.select-input-device option[disabled] {
+  display: none;
+}
 .select-input-device .device{
   text-align: start;
   font-family: Roboto-Regular;
