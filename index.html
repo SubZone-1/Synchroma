@@ -34,7 +34,8 @@
 
                     <select id="select-input-device" class="select-input-device" required>
                         <option value="" selected disabled>SELECT DEVICE</option>
-                        <option value="" class="device">&nbsp;example device</option>
+                        <option value="" class="device">&nbsp;Integrated Player</option>
+                        <option value="" class="device">&nbsp;Example Device</option>
                     </select>
                 </div>
 
@@ -48,9 +49,23 @@
                 </div>
 
                 <div id="detection-sensitivity" class="detection-sensitivity">
-                    <h5>DETECTION SENSITIVITY</h5>
+                    <h5 id="sens-label"></h5>
 
-                    <input type="range" min="0" max="100" value="50" class="sens-slider" id="sens-slider">
+                    <div id="sens-slider-container" class="sens-slider-container">
+                        <input type="range" min="0" max="100" value="50" class="sens-slider" id="sens-slider">
+                        <p class="sens-start-value">0</p><p class="sens-end-value">100</p>
+                    </div>
+                </div>
+
+                <br>
+
+                <div id="strobe-duration" class="strobe-duration">
+                    <h5 id="duration-label"></h5>
+
+                    <div id="duration-slider-container" class="duration-slider-container">
+                        <input type="range" min="10" max="1000" value="200" class="duration-slider" id="duration-slider">
+                        <p class="duration-start-value">10</p><p class="duration-end-value">1000</p>
+                    </div>
                 </div>
             </div>
             
@@ -70,6 +85,10 @@
         <img src="assets\img\logo-V2\logo-horizontal-white.png" id="index-logo" class="index-logo" hidden>
     </div>
 </body>
+<!-- strobe duration slider script -->
+<script src="assets\js\durationSlider.js"></script>
+<!-- detection sensitivity slider script -->
+<script src="assets\js\sensSlider.js"></script>
 <!-- frequency range focus script -->
 <script src="assets\js\frequencyRangeFocus.js"></script>
 <!-- auto mode script -->

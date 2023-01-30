@@ -228,6 +228,7 @@ body {
   font-family: Roboto-Medium;
   font-size: 16px;
   color: #575F6B;
+  outline: none;
 } .input-device .select-input-device:required:valid {
   width: 330px;
   height: 40px;
@@ -237,21 +238,14 @@ body {
   font-family: Roboto-Medium;
   font-size: 16px;
   color: #575F6B;
+  outline: none;
 } 
 
 .select-input-device option[disabled] {
   display: none;
-}
-.select-input-device .device{
+}.select-input-device .device{
   text-align: start;
   font-family: Roboto-Regular;
-}
-
-/* Detetction Sensitivity 
-------------------------------*/
-.detection-sensitivity .sens-slider {
-  width: 330px;
-  margin-left: 35px;
 }
 
 /* Frequency Range Focus 
@@ -293,10 +287,128 @@ body {
   margin-left: 11px;
 }
 
+/* Detetction Sensitivity 
+------------------------------*/
+/* The slider container */
+.sens-slider-container {
+  width: 100%; /* Width of the outside container */
+}
+
+/* Slider labels */
+.sens-slider-container p {
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #575F6B;
+} .sens-start-value {
+  float: left;
+  margin-left: 35px;
+  margin-top: 2px;
+} .sens-end-value {
+  float: right;
+  margin-right: 35px;
+  margin-top: 2px;
+} 
+
+/* The slider itself */
+.sens-slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 330px; /* Full-width */
+  height: 10px; /* Specified height */
+  margin-left: 35px;
+  background: #b5b5b5; /* Grey background */
+  border-radius: 5px;
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.sens-slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.sens-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  border-radius: 5px;
+  background: #ffffff;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.sens-slider::-moz-range-thumb {
+  width: 35px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  background: #ffffff;
+  cursor: pointer; /* Cursor on hover */
+}
+
+/* Strobe Duration
+------------------------------*/
+/* The slider container */
+.duration-slider-container {
+  width: 100%; /* Width of the outside container */
+}
+
+/* Slider labels */
+.duration-slider-container p {
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #575F6B;
+} .duration-start-value {
+  float: left;
+  margin-left: 35px;
+  margin-top: 2px;
+} .duration-end-value {
+  float: right;
+  margin-right: 35px;
+  margin-top: 2px;
+} 
+
+/* The slider itself */
+.duration-slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 330px; /* Full-width */
+  height: 10px; /* Specified height */
+  margin-left: 35px;
+  background: #b5b5b5; /* Grey background */
+  border-radius: 5px;
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.duration-slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.duration-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  border-radius: 5px;
+  background: #ffffff;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.duration-slider::-moz-range-thumb {
+  width: 35px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  background: #ffffff;
+  cursor: pointer; /* Cursor on hover */
+}
+
 /* Button used to open and close the sidebar */
 .opencloseSidebar {
-  width:  40px;
-  height:  40px;
+  width: 40px;
+  height: 40px;
   font-size: 20px;
   cursor: pointer;
   background-color: #ffffff;
