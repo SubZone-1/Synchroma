@@ -136,19 +136,6 @@ body {
   border: 1px solid #575F6B;
 }
 
-/* Links */
-.sidebar a {
-  font-family: Roboto-Regular;
-  font-size: 25px;
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  color: #575F6B;
-  display: block;
-  transition: 0.3s;
-}.sidebar a:hover {
-  color: #f1f1f1;
-}
-
 /* Auto strobe mode button */
 .auto-btn {
   width:  150px;
@@ -403,6 +390,203 @@ body {
   height: 20px; /* Slider handle height */
   background: #ffffff;
   cursor: pointer; /* Cursor on hover */
+}
+
+/* Sound Detection Details
+------------------------------*/
+.SDD-container {
+  width: 330px;
+  height: 180px;
+  margin-left: 35px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: #ffffff;
+}
+
+.SDD-container .SCT, .tempo, .audio-meter {
+  font-family: Roboto-Bold;
+  color:#575F6B;
+  margin-left: 25px;
+  float: left;
+} .SDD-container .bpm {
+  font-family: Roboto-Bold;
+  color:#575F6B;
+  margin-right: 25px;
+  float: right;
+}
+
+.SDD-container hr {
+  width: 329px;
+  color:#575F6B;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Customize the label (the container) */
+.SCT-check-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-top: 3px;
+  cursor: default;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  float: right;
+  margin-right: 50px;
+}
+
+/* Hide the browser's default checkbox */
+.SCT-check-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.SCT-checkmark {
+  position: absolute;
+  top: 17px;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  background-color: #eee;
+}
+
+/* When the checkbox is checked (audio coming through), add a green background */
+.SCT-check-container input:checked ~ .SCT-checkmark {
+  background-color: #23be2b;
+}
+
+/* Customize the label (the container) */
+.AM-check-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  float: right;
+  margin-right: 50px;
+}
+
+/* Hide the browser's default checkbox */
+.AM-check-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.AM-checkmark {
+  position: absolute;
+  top: 17px;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.AM-check-container:hover input ~ .AM-checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add an orange background */
+.AM-check-container input:checked ~ .AM-checkmark {
+  background-color: #f98f26;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.AM-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.AM-check-container input:checked ~ .AM-checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.AM-check-container .AM-checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* On/Off Section
+------------------------------*/
+/* Off button */
+.off-btn {
+  width:  150px;
+  height:  40px;
+  font-family: Roboto-Bold;
+  font-size: 20px;
+  float: left;
+  margin-left: 35px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #575F6B;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: none;
+  transition:  transform .1s;
+  /* applies hover effects to all .off-btn classes without .selected specified */
+} .off-btn:not(.selected):hover {
+  color: #f98f26;
+  transform: scale(1.125);
+} .off-btn.selected {
+  scale: 1.125;
+  color: #f98f26;
+  cursor: default;
+}
+
+/* On button */
+.on-btn {
+  width:  150px;
+  height:  40px;
+  font-family: Roboto-Bold;
+  font-size: 20px;
+  margin-left: 30px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #575F6B;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: none;
+  transition:  transform .1s;
+  /* applies hover effects to all .on-btn classes without .selected specified */
+} .on-btn:not(.selected):hover {
+  color: #f98f26;
+  transform: scale(1.125);
+} .on-btn.selected {
+  scale: 1.125;
+  color: #f98f26;
+  cursor: default;
 }
 
 /* Button used to open and close the sidebar */

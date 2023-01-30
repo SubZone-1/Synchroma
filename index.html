@@ -67,24 +67,58 @@
                         <p class="duration-start-value">10</p><p class="duration-end-value">1000</p>
                     </div>
                 </div>
+
+                <br>
+
+                <div id="sound-detection-details" class="sound-detection-details">
+                    <h5>SOUND DETECTION DETAILS</h5>
+
+                    <div id="SDD-container" class="SDD-container">
+                        <div class="SCT-section">
+                            <h4 class="SCT">SOUND COME THROUGH</h4>
+                            <label class="SCT-check-container">
+                                <input type="checkbox" checked disabled> <!-- only check when audio coming trough, change with javascript -->
+                                <span class="SCT-checkmark"></span>
+                            </label>
+                            <hr>
+                        </div>
+                        
+                        <div class="tempo-section">
+                            <h4 class="tempo">TEMPO:</h4>
+                            <h4 class="bpm">150BPM</h4> <!-- change with javascript -->
+                            <hr>
+                        </div>
+                        
+                        <div class="audio-meter-section">
+                            <h4 class="audio-meter">AUDIO METER</h4>
+                            <label class="AM-check-container">
+                                <input type="checkbox">
+                                <span class="AM-checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="on-off" class="on-off">
+                    <button id="off" class="off-btn selected" onclick="turnOff()">OFF</button>
+                    <button id="on" class="on-btn" onclick="turnOn();">ON</button>
+                </div>
             </div>
             
             <div id="manual-mode" class="manual-mode" hidden>
                 manual mode
             </div>
-
-            <!--<a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>-->
         </div>
-        
     </div>
     <div id="main">
         <button id="opencloseSidebar" class="opencloseSidebar" onclick="closeSidebar();activateLogo()">&#10094;</button>
         <img src="assets\img\logo-V2\logo-horizontal-white.png" id="index-logo" class="index-logo" hidden>
     </div>
 </body>
+<!-- on button script -->
+<script src="assets\js\onBtn.js"></script>
+<!-- off button script -->
+<script src="assets\js\offBtn.js"></script>
 <!-- strobe duration slider script -->
 <script src="assets\js\durationSlider.js"></script>
 <!-- detection sensitivity slider script -->
