@@ -7,28 +7,29 @@
     <meta name="author" content="Daniel Mogildea">
     <meta name="description" content="A web-based audio visualizer that displays 
     different visual changes in the background of the page, in order to obtain a strobe light effect.">
-    <title>Synchroma: Audio-Synced Strobe Lighting</title>
-    <link rel="icon" href="assets\img\logo-V2\symbol.png">
+    <title>Synchroma Tailwind CSS: Audio-Synced Strobe Lighting</title>
+    <link rel="icon" href="..\assets\img\logo-V2\symbol.png">
 
-    <link rel="stylesheet" href="assets\css\app.css">
+    <!--<link rel="stylesheet" href="assets\css\app.css">-->
+    <link rel="stylesheet" href="assets\css\styles.css">
 </head>
-<body>
-    <div id="sidebar" class="sidebar">
-        <div id="sidebar-content" class="sidebar-content">
-            <div id="sidebar-logo" class="sidebar-logo">
+<body class="bg-black">
+    <div id="sidebar">
+        <div id="sidebar-container" class="bg-gray-300 w-400px h-full pt-1.5 absolute z-1 flex overflow-x-hidden opacity-100 transition-opacity duration-500">
+            <div id="sidebar-logo" class="w-[300px] justify-center">
                 <img src="assets\img\logo-V2\logo-horizontal-black.png">
             </div>
 
             <hr>
 
-            <h3 class="mode-label">STROBE SYNC MODE</h3>
+            <h3>STROBE SYNC MODE</h3>
 
             <button id="auto" class="auto-btn selected" onclick="autoMode()">AUTO</button>
             <button id="manual" class="manual-btn" onclick="manualMode();">MANUAL</button>
 
             <hr>
 
-            <div id="auto-mode" class="auto-mode">
+            <div id="auto-mode" class="auto-mode"> <!-- "AM" stands for "Auto Mode" -->
                 <div id="input-device" class="input-device">
                     <h5>INPUT DEVICE</h5>
 
@@ -60,10 +61,10 @@
                 <br>
 
                 <div id="strobe-duration" class="strobe-duration">
-                    <h5 id="duration-label"></h5>
+                    <h5 id="AM-duration-label"></h5>
 
                     <div id="duration-slider-container" class="duration-slider-container">
-                        <input type="range" min="10" max="1000" value="200" class="duration-slider" id="duration-slider">
+                        <input type="range" min="10" max="1000" value="200" class="duration-slider" id="AM-duration-slider">
                         <p class="duration-start-value">10</p><p class="duration-end-value">1000</p>
                     </div>
                 </div>
@@ -89,7 +90,7 @@
                             <hr>
                         </div>
                         
-                        <div class="audio-meter-section">
+                        <div class="audio-meter-section"> <!-- in this context "AM" stands for "Audio Meter" -->
                             <h4 class="audio-meter">AUDIO METER</h4>
                             <label class="AM-check-container">
                                 <input type="checkbox">
@@ -99,18 +100,30 @@
                     </div>
                 </div>
 
-                <div id="on-off" class="on-off">
-                    <button id="off" class="off-btn selected" onclick="turnOff()">OFF</button>
-                    <button id="on" class="on-btn" onclick="turnOn();">ON</button>
+                <div id="AM-on-off" class="on-off">
+                    <button id="AM-off" class="off-btn selected" onclick="AM_turnOff()">OFF</button>
+                    <button id="AM-on" class="on-btn" onclick="AM_turnOn();">ON</button>
                 </div>
             </div>
             
-            <div id="manual-mode" class="manual-mode" hidden>
-                manual mode
+            <div id="manual-mode" class="manual-mode" hidden> <!-- "MM" stands for "Manual Mode" -->
+                <div id="strobe-duration" class="strobe-duration">
+                    <h5 id="MM-duration-label"></h5>
+
+                    <div id="duration-slider-container" class="duration-slider-container">
+                        <input type="range" min="10" max="1000" value="200" class="duration-slider" id="MM-duration-slider">
+                        <p class="duration-start-value">10</p><p class="duration-end-value">1000</p>
+                    </div>
+                </div>
+
+                <div id="MM-on-off" class="on-off">
+                    <button id="MM-off" class="off-btn selected" onclick="MM_turnOff()">OFF</button>
+                    <button id="MM-on" class="on-btn" onclick="MM_turnOn();">ON</button>
+                </div>
             </div>
         </div>
     </div>
-    <div id="main">
+    <div id="main" class="ml-400px p-[20px] h-full">
         <button id="opencloseSidebar" class="opencloseSidebar" onclick="closeSidebar();activateLogo()">&#10094;</button>
         <img src="assets\img\logo-V2\logo-horizontal-white.png" id="index-logo" class="index-logo" hidden>
     </div>
