@@ -8,91 +8,99 @@
     <meta name="description" content="A web-based audio visualizer that displays 
     different visual changes in the background of the page, in order to obtain a strobe light effect.">
     <title>Synchroma Tailwind CSS: Audio-Synced Strobe Lighting</title>
-    <link rel="icon" href="..\assets\img\logo-V2\symbol.png">
+    <link rel="icon" href="assets\img\logo-V2\symbol.png">
 
     <!--<link rel="stylesheet" href="assets\css\app.css">-->
     <link rel="stylesheet" href="assets\css\styles.css">
 </head>
 <body class="bg-black">
     <div id="sidebar">
-        <div id="sidebar-container" class="bg-gray-300 w-400px h-full pt-1.5 absolute z-1 flex overflow-x-hidden opacity-100 transition-opacity duration-500">
-            <div id="sidebar-logo" class="w-[300px] justify-center">
-                <img src="assets\img\logo-V2\logo-horizontal-black.png">
+        <div id="sidebar-container" class="py-1.5 bg-gray-300 w-400px h-full absolute z-1 overflow-x-hidden opacity-100">
+            <div id="sidebar-logo" class="w-[300px] mx-auto">
+                <img class="" src="assets\img\logo-V2\logo-horizontal-black.png">
             </div>
 
-            <hr>
+            <hr class="w-[375px] border border-solid border-zinc-700 mx-auto">
 
-            <h3>STROBE SYNC MODE</h3>
+            <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">STROBE SYNC MODE</h3>
 
-            <button id="auto" class="auto-btn selected" onclick="autoMode()">AUTO</button>
-            <button id="manual" class="manual-btn" onclick="manualMode();">MANUAL</button>
+            <div id="auto-manual-container" class="w-[330px] ml-35px flex justify-between">
+                <button id="auto" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange selected" onclick="autoMode()">AUTO</button>
+                <button id="manual" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700" onclick="manualMode();">MANUAL</button>
+            </div>
 
-            <hr>
+            <hr class="w-[375px] border border-solid border-zinc-700 mx-auto">
 
-            <div id="auto-mode" class="auto-mode"> <!-- "AM" stands for "Auto Mode" -->
-                <div id="input-device" class="input-device">
-                    <h5>INPUT DEVICE</h5>
+            <div id="auto-mode-container" class=""> <!-- "AM" stands for "Auto Mode" -->
+                <div id="input-device-container" class="w-[330px] ml-35px">
+                    <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">INPUT DEVICE</h5>
 
-                    <select id="select-input-device" class="select-input-device" required>
-                        <option value="" selected disabled>SELECT DEVICE</option>
-                        <option value="" class="device">&nbsp;Integrated Player</option>
-                        <option value="" class="device">&nbsp;Example Device</option>
+                    <select id="select-input-device" class="w-full h-10 mb-5 flex mx-auto bg-white rounded outline-none font-semibold text-center text-gray-700" required>
+                        <option value="" selected disabled hidden>SELECT DEVICE</option>
+                        <option value="" class="device text-left">&nbsp;Integrated Player</option>
+                        <option value="" class="device text-left">&nbsp;Example Device</option>
                     </select>
                 </div>
 
-                <div id="frequency-range-focus" class="frequency-range-focus">
-                    <h5>FREQUENCY RANGE FOCUS</h5>
+                <div id="frequency-range-focus-container" class="w-[330px] ml-35px">
+                    <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">FREQUENCY RANGE FOCUS</h5>
 
-                    <button id="low" class="low-btn selected" onclick="low_Btn()">LOW</button>
-                    <button id="mid" class="mid-btn" onclick="mid_Btn()">MID</button>
-                    <button id="high" class="high-btn" onclick="high_Btn()">HIGH</button>
-                    <button id="master" class="master-btn" onclick="master_Btn()">MASTER</button>
+                    <div id="low-mid-high-container" class="w-full flex justify-between">
+                        <button id="low" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-themeOrange selected" onclick="low_Btn()">LOW</button>
+                        <button id="mid" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-gray-700" onclick="mid_Btn()">MID</button>
+                        <button id="high" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-gray-700" onclick="high_Btn()">HIGH</button>
+                    </div>
+                    <button id="master" class="w-full h-12 mb-3 pt-[2px] bg-white rounded font-bold text-base text-gray-700" onclick="master_Btn()">MASTER</button>
                 </div>
 
-                <div id="detection-sensitivity" class="detection-sensitivity">
-                    <h5 id="sens-label"></h5>
+                <div id="detection-sensitivity-container" class="w-[330px] ml-35px">
+                    <h5 id="sens-label" class="mt-3 mb-1 font-semibold text-sm text-gray-500"></h5>
 
-                    <div id="sens-slider-container" class="sens-slider-container">
-                        <input type="range" min="0" max="100" value="50" class="sens-slider" id="sens-slider">
-                        <p class="sens-start-value">0</p><p class="sens-end-value">100</p>
+                    <div id="sens-slider-container" class="w-full">
+                        <input type="range" min="0" max="100" value="50" class="sens-slider w-full" id="sens-slider">
+                        <p class="float-left font-regular text-sm text-gray-600">0</p>
+                        <p class="float-right font-regular text-sm text-gray-600">100</p>
                     </div>
                 </div>
 
                 <br>
 
-                <div id="strobe-duration" class="strobe-duration">
-                    <h5 id="AM-duration-label"></h5>
+                <div id="strobe-duration-container" class="w-[330px] ml-35px">
+                    <h5 id="AM-duration-label" class="mt-3 mb-1 font-semibold text-sm text-gray-500"></h5>
 
                     <div id="duration-slider-container" class="duration-slider-container">
-                        <input type="range" min="10" max="1000" value="200" class="duration-slider" id="AM-duration-slider">
-                        <p class="duration-start-value">10</p><p class="duration-end-value">1000</p>
+                        <input type="range" min="10" max="1000" value="200" class="duration-slider w-full" id="AM-duration-slider">
+                        <p class="float-left font-regular text-sm text-gray-600">10</p>
+                        <p class="float-right font-regular text-sm text-gray-600">1000</p>
                     </div>
                 </div>
 
                 <br>
 
-                <div id="sound-detection-details" class="sound-detection-details">
-                    <h5>SOUND DETECTION DETAILS</h5>
+                <div id="sound-detection-details-container" class="w-[330px] ml-35px absolute bottom-[75px]">
+                    <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">SOUND DETECTION DETAILS</h5>
 
-                    <div id="SDD-container" class="SDD-container">
-                        <div class="SCT-section">
-                            <h4 class="SCT">SOUND COME THROUGH</h4>
-                            <label class="SCT-check-container">
+                    <div id="SDD-container" class="w-full h-40 px-4 bg-white rounded flex flex-col justify-evenly">
+                        <div id="SCT-container" class="w-full">
+                            <h4 class="float-left font-semibold text-base text-gray-600">SOUND COME THROUGH</h4>
+                            <label id="SCT-check-container" class="float-right">
                                 <input type="checkbox" checked disabled> <!-- only check when audio coming trough, change with javascript -->
                                 <span class="SCT-checkmark"></span>
                             </label>
-                            <hr>
                         </div>
+
+                        <hr>
                         
-                        <div class="tempo-section">
-                            <h4 class="tempo">TEMPO:</h4>
-                            <h4 class="bpm">150BPM</h4> <!-- change with javascript -->
-                            <hr>
+                        <div id="tempo-container" class="w-full">
+                            <h4 class="float-left font-semibold text-base text-gray-600">TEMPO:</h4>
+                            <h4 id="bpm" class="float-right font-semibold text-base text-gray-600">150BPM</h4> <!-- change with javascript -->
                         </div>
+
+                        <hr>
                         
-                        <div class="audio-meter-section"> <!-- in this context "AM" stands for "Audio Meter" -->
-                            <h4 class="audio-meter">AUDIO METER</h4>
-                            <label class="AM-check-container">
+                        <div id="audio-meter-container" class="w-full">
+                            <h4 class="float-left font-semibold text-base text-gray-600">AUDIO METER</h4>
+                            <label id="AM-check-container" class="float-right"><!-- in this context "AM" stands for "Audio Meter" -->
                                 <input type="checkbox">
                                 <span class="AM-checkmark"></span>
                             </label>
@@ -100,9 +108,11 @@
                     </div>
                 </div>
 
-                <div id="AM-on-off" class="on-off">
-                    <button id="AM-off" class="off-btn selected" onclick="AM_turnOff()">OFF</button>
-                    <button id="AM-on" class="on-btn" onclick="AM_turnOn();">ON</button>
+                <br>
+
+                <div id="AM-on-off-container" class="w-[330px] ml-35px flex justify-between absolute bottom-0">
+                    <button id="AM-off" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange selected" onclick="AM_turnOff()">OFF</button>
+                    <button id="AM-on" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700" onclick="AM_turnOn();">ON</button>
                 </div>
             </div>
             
@@ -117,7 +127,7 @@
                 </div>
 
                 <div id="MM-on-off" class="on-off">
-                    <button id="MM-off" class="off-btn selected" onclick="MM_turnOff()">OFF</button>
+                    <button id="MM-off" class="off-btn" onclick="MM_turnOff()">OFF</button>
                     <button id="MM-on" class="on-btn" onclick="MM_turnOn();">ON</button>
                 </div>
             </div>
