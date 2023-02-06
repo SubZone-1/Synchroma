@@ -6,13 +6,21 @@ var masterBtn = document.getElementById("master");
 
 function low_Btn() {
     // select and disable low button
-    lowBtn.setAttribute("class", "low-btn selected");
+    lowBtn.classList.add("text-themeOrange");
+    lowBtn.classList.remove("text-gray-700");
+    lowBtn.classList.remove("hover:scale-1125");
     lowBtn.setAttribute("disabled", "true");
 
     // de-select rest
-    midBtn.setAttribute("class", "mid-btn");
-    highBtn.setAttribute("class", "high-btn");
-    masterBtn.setAttribute("class", "master-btn");
+    midBtn.classList.add("text-gray-700");
+    midBtn.classList.add("hover:scale-1125");
+    midBtn.classList.remove("text-themeOrange");
+    highBtn.classList.add("text-gray-700");
+    highBtn.classList.add("hover:scale-1125");
+    highBtn.classList.remove("text-themeOrange");
+    masterBtn.classList.add("text-gray-700");
+    masterBtn.classList.add("hover:scale-1125");
+    masterBtn.classList.remove("text-themeOrange");
 
     // enable rest
     midBtn.removeAttribute("disabled");
@@ -21,13 +29,21 @@ function low_Btn() {
 }
 function mid_Btn() {
     // select and disable mid button
-    midBtn.setAttribute("class", "mid-btn selected");
+    midBtn.classList.add("text-themeOrange");
+    midBtn.classList.remove("text-gray-700");
+    midBtn.classList.remove("hover:scale-1125");
     midBtn.setAttribute("disabled", "true");
 
     // de-select rest
-    lowBtn.setAttribute("class", "low-btn");
-    highBtn.setAttribute("class", "high-btn");
-    masterBtn.setAttribute("class", "master-btn");
+    lowBtn.classList.add("text-gray-700");
+    lowBtn.classList.add("hover:scale-1125");
+    lowBtn.classList.remove("text-themeOrange");
+    highBtn.classList.add("text-gray-700");
+    highBtn.classList.add("hover:scale-1125");
+    highBtn.classList.remove("text-themeOrange");
+    masterBtn.classList.add("text-gray-700");
+    masterBtn.classList.add("hover:scale-1125");
+    masterBtn.classList.remove("text-themeOrange");
     
     // enable rest
     lowBtn.removeAttribute("disabled");
@@ -36,13 +52,21 @@ function mid_Btn() {
 }
 function high_Btn() {
     // select and disable high button
-    highBtn.setAttribute("class", "high-btn selected");
+    highBtn.classList.add("text-themeOrange");
+    highBtn.classList.remove("text-gray-700");
+    highBtn.classList.remove("hover:scale-1125");
     highBtn.setAttribute("disabled", "true");
 
     // de-select rest
-    lowBtn.setAttribute("class", "low-btn");
-    midBtn.setAttribute("class", "mid-btn");
-    masterBtn.setAttribute("class", "master-btn");
+    lowBtn.classList.add("text-gray-700");
+    lowBtn.classList.add("hover:scale-1125");
+    lowBtn.classList.remove("text-themeOrange");
+    midBtn.classList.add("text-gray-700");
+    midBtn.classList.add("hover:scale-1125");
+    midBtn.classList.remove("text-themeOrange");
+    masterBtn.classList.add("text-gray-700");
+    masterBtn.classList.add("hover:scale-1125");
+    masterBtn.classList.remove("text-themeOrange");
 
     // enable rest
     lowBtn.removeAttribute("disabled");
@@ -51,13 +75,21 @@ function high_Btn() {
 }
 function master_Btn() {
     // select and disable master button
-    masterBtn.setAttribute("class", "master-btn selected");
+    masterBtn.classList.add("text-themeOrange");
+    masterBtn.classList.remove("text-gray-700");
+    masterBtn.classList.remove("hover:scale-1125");
     masterBtn.setAttribute("disabled", "true");
 
     // de-select rest
-    lowBtn.setAttribute("class", "low-btn");
-    midBtn.setAttribute("class", "mid-btn");
-    highBtn.setAttribute("class", "high-btn");
+    lowBtn.classList.add("text-gray-700");
+    lowBtn.classList.add("hover:scale-1125");
+    lowBtn.classList.remove("text-themeOrange");
+    midBtn.classList.add("text-gray-700");
+    midBtn.classList.add("hover:scale-1125");
+    midBtn.classList.remove("text-themeOrange");
+    highBtn.classList.add("text-gray-700");
+    highBtn.classList.add("hover:scale-1125");
+    highBtn.classList.remove("text-themeOrange");
 
     // enable rest
     lowBtn.removeAttribute("disabled");

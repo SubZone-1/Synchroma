@@ -18,7 +18,13 @@ module.exports = {
       spacing: {
         "35px": "35px",
         "400px": "400px",
-      }
+      },
+      scale: {
+        "1125": "1.125",
+      },
+      transitionProperty: {
+        "width": "width",
+      },
     },
   },
   plugins: [],

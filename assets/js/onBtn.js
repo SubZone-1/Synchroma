@@ -7,8 +7,13 @@ function AM_turnOn() {
     AM_onBtn.setAttribute("disabled", "true");
     AM_offBtn.removeAttribute("disabled");
 
-    AM_onBtn.setAttribute("class", "on-btn selected");
-    AM_offBtn.setAttribute("class", "off-btn");
+    AM_onBtn.classList.remove("text-gray-700");
+    AM_onBtn.classList.remove("hover:scale-1125");
+    AM_onBtn.classList.add("text-themeOrange");
+
+    AM_offBtn.classList.add("text-gray-700");
+    AM_offBtn.classList.add("hover:scale-1125");
+    AM_offBtn.classList.remove("text-themeOrange");
 }
 
 /* ----- Manual mode ON button ----- */
@@ -20,6 +25,11 @@ function MM_turnOn() {
     MM_onBtn.setAttribute("disabled", "true");
     MM_offBtn.removeAttribute("disabled");
 
-    MM_onBtn.setAttribute("class", "on-btn selected");
-    MM_offBtn.setAttribute("class", "off-btn");
+    MM_onBtn.classList.remove("text-gray-700");
+    MM_onBtn.classList.remove("hover:scale-1125");
+    MM_onBtn.classList.add("text-themeOrange");
+
+    MM_offBtn.classList.add("text-gray-700");
+    MM_offBtn.classList.add("hover:scale-1125");
+    MM_offBtn.classList.remove("text-themeOrange");
 }
