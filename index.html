@@ -22,7 +22,17 @@
                 <img class="" src="assets\img\logo-V2\logo-horizontal-black.png">
             </div>
 
-            <hr class="w-[375px] border border-solid border-zinc-700 mx-auto">
+            <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
+
+            <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">INTERNAL PLAYER <a id="show-hide-a" class="text-gray-600 font-thin cursor-pointer hover:text-themeOrange hover:font-bold" onclick="hidePlayer()">(HIDE)</a></h3>
+
+            <div id="internal-player-container" class="w-[330px] ml-35px mt--3 mb-3">
+                <input type="file" id="player-file" class="mb-3 w-full" accept="audio/*">
+                <audio id="internal-player" class="w-full" controls></audio>
+                <p id="now-playing" class="mt-3 text-center" hidden></p>
+            </div> 
+
+            <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
             <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">STROBE SYNC MODE</h3>
 
@@ -31,7 +41,7 @@
                 <button id="manual" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all" onclick="manualMode();">MANUAL</button>
             </div>
 
-            <hr class="w-[375px] border border-solid border-zinc-700 mx-auto">
+            <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
             <div id="auto-mode-container" class=""> <!-- "AM" stands for "Auto Mode" -->
                 <div id="AM-top-position-container" class="">
@@ -152,6 +162,8 @@
         <img src="assets\img\logo-V2\logo-horizontal-white.png" id="main-logo" class="px-[20px] w-[300px] right-0  opacity-50 hover:opacity-100 absolute" hidden>
     </div>
 </body>
+<!-- internal player script -->
+<script src="assets\js\internalPlayer.js"></script>
 <!-- sidebar scroll script (missing manual mode variation) -->
 <script src="assets\js\sidebarScroll.js"></script>
 <!-- on button script -->

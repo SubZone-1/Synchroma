@@ -1,0 +1,33 @@
+// Check for BlobURL support
+var blob = window.URL || window.webkitURL;
+    if (!blob) {
+        console.log('Your browser does not support Blob URLs :(');          
+    }
+
+document.getElementById("player-file").addEventListener("change", function() {
+
+    var file = this.files[0],
+     fileURL = blob.createObjectURL(file);
+    console.log(file);
+    console.log('File name: '+file.name);
+    console.log('File type: '+file.type);
+    console.log('File BlobURL: '+ fileURL);
+    document.getElementById('internal-player').src = fileURL;
+    document.getElementById('now-playing').innerHTML = "<b>Playing: </b>" + file.name;
+    document.getElementById('now-playing').removeAttribute("hidden");
+
+});
+
+function hidePlayer() {
+    document.getElementById("internal-player-container").setAttribute("hidden", true);
+
+    document.getElementById("show-hide-a").innerHTML = "(SHOW)";
+    document.getElementById("show-hide-a").setAttribute("onclick", "showPlayer()");
+}
+
+function showPlayer() {
+    document.getElementById("internal-player-container").removeAttribute("hidden");
+    
+    document.getElementById("show-hide-a").innerHTML = "(HIDE)";
+    document.getElementById("show-hide-a").setAttribute("onclick", "hidePlayer()");
+}
