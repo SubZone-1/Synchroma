@@ -19,4 +19,7 @@ function manualMode() {
     autoBtn.classList.remove("text-themeOrange");
     autoBtn.classList.add("text-text-gray-700");
     autoBtn.classList.add("hover:scale-1125");
+
+    // variable used in scrollbar script
+    selectedMode = "manual";
 }
