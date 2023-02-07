@@ -1068,6 +1068,10 @@ input:checked + .toggle-bg {
   bottom: 60px;
 }
 
+.left-\[-400px\] {
+  left: -400px;
+}
+
 .z-50 {
   z-index: 50;
 }
