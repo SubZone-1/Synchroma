@@ -18,7 +18,10 @@ document.getElementById("player-file").addEventListener("change", function() {
 
 });
 
+var playerHidden = false; // used for controlling sidebar scroll point
+
 function hidePlayer() {
+    playerHidden = true;
     document.getElementById("internal-player-container").setAttribute("hidden", true);
 
     document.getElementById("show-hide-a").innerHTML = "(SHOW)";
@@ -26,6 +29,7 @@ function hidePlayer() {
 }
 
 function showPlayer() {
+    playerHidden = false;
     document.getElementById("internal-player-container").removeAttribute("hidden");
     
     document.getElementById("show-hide-a").innerHTML = "(HIDE)";
