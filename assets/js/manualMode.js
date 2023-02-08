@@ -23,3 +23,39 @@ function manualMode() {
     // variable used in scrollbar script
     selectedMode = "manual";
 }
+
+var BPMvalueSource = "manual"; // default value
+
+function useManual() {
+    // disable manual value button (selected) and enable tap value button
+    document.getElementById("useManual-btn").setAttribute("disabled", "true");
+    document.getElementById("useTap-btn").removeAttribute("disabled");
+    
+    // styling
+    document.getElementById("useManual-btn").classList.remove("text-gray-700");
+    document.getElementById("useManual-btn").classList.remove("hover:scale-1050");
+    document.getElementById("useManual-btn").classList.add("text-themeOrange");
+
+    document.getElementById("useTap-btn").classList.remove("text-themeOrange");
+    document.getElementById("useTap-btn").classList.add("text-text-gray-700");
+    document.getElementById("useTap-btn").classList.add("hover:scale-1050");
+
+    BPMvalueSource = "manual";
+}
+
+function useTap() {
+    // disable tap value button (selected) and enable manual value button
+    document.getElementById("useTap-btn").setAttribute("disabled", "true");
+    document.getElementById("useManual-btn").removeAttribute("disabled");
+
+    // styling
+    document.getElementById("useTap-btn").classList.remove("text-gray-700");
+    document.getElementById("useTap-btn").classList.remove("hover:scale-1050");
+    document.getElementById("useTap-btn").classList.add("text-themeOrange");
+
+    document.getElementById("useManual-btn").classList.remove("text-themeOrange");
+    document.getElementById("useManual-btn").classList.add("text-text-gray-700");
+    document.getElementById("useManual-btn").classList.add("hover:scale-1050");
+
+    BPMvalueSource = "tap";
+}

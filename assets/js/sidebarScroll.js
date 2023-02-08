@@ -13,9 +13,9 @@ window.onresize = window.onload = function () {
     }
 
     if (selectedMode = "manual") { // when manual strobe sync mode is selected
-        if (playerHidden == false && window.innerHeight <= 685) { // when internal player is being shown and viewport height is lower or equals685px
+        if (playerHidden == false && window.innerHeight <= 835) { // when internal player is being shown and viewport height is lower or equals685px
             document.getElementById("MM-bottom-position-container").classList.remove("absolute");
-        } else if (playerHidden == true && window.innerHeight <= 565) { // when internal player is hidden and viewport height is lower or equals 565px
+        } else if (playerHidden == true && window.innerHeight <= 705) { // when internal player is hidden and viewport height is lower or equals 565px
             document.getElementById("MM-bottom-position-container").classList.remove("absolute");
         } else {
             document.getElementById("MM-bottom-position-container").classList.add("absolute"); // in order to ignore DOM and stick element to the bottom

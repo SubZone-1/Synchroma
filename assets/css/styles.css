@@ -1147,6 +1147,10 @@ input:checked + .toggle-bg {
   margin-bottom: 1.25rem;
 }
 
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
 .mr-\[15px\] {
   margin-right: 15px;
 }
@@ -1235,10 +1239,6 @@ input:checked + .toggle-bg {
   height: 1rem;
 }
 
-.h-24 {
-  height: 6rem;
-}
-
 .max-h-screen {
   max-height: 100vh;
 }
@@ -1279,8 +1279,16 @@ input:checked + .toggle-bg {
   width: 2.75rem;
 }
 
+.w-\[65px\] {
+  width: 65px;
+}
+
 .w-16 {
   width: 4rem;
+}
+
+.w-\[160px\] {
+  width: 160px;
 }
 
 .w-4 {
@@ -1436,6 +1444,11 @@ input:checked + .toggle-bg {
   border-bottom-left-radius: 0.5rem;
 }
 
+.rounded-r-md {
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
 .rounded-r-lg {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
@@ -1447,6 +1460,10 @@ input:checked + .toggle-bg {
 
 .border-0 {
   border-width: 0px;
+}
+
+.border-l-0 {
+  border-left-width: 0px;
 }
 
 .border-solid {
@@ -1574,6 +1591,11 @@ input:checked + .toggle-bg {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .px-\[20px\] {
@@ -1858,6 +1880,12 @@ input:checked + .toggle-bg {
 .hover\:scale-1125:hover {
   --tw-scale-x: 1.125;
   --tw-scale-y: 1.125;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hover\:scale-1050:hover {
+  --tw-scale-x: 1.050;
+  --tw-scale-y: 1.050;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 

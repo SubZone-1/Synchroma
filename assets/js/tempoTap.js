@@ -1,6 +1,7 @@
 var count = 0;
 var msecsFirst = 0;
 var msecsPrevious = 0;
+var tapBPM = 0;
 
 function resetCount() {
   count = 0;
@@ -26,6 +27,7 @@ function tempoTap() {
     bpmAvg = 60000 * count / (msecs - msecsFirst);
     document.getElementById("avg-value").innerHTML = Math.round(bpmAvg * 100) / 100 + " BPM"; // in order to display decimal value
     document.getElementById("rounded-value").innerHTML = Math.round(bpmAvg) + " BPM";
+    tapBPM = Math.round(bpmAvg);
     count++;
     console.log("Tap Count: " + count)
     }

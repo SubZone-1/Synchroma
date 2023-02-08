@@ -32,4 +32,7 @@ function MM_turnOff() {
     MM_onBtn.classList.add("text-gray-700");
     MM_onBtn.classList.add("hover:scale-1125");
     MM_onBtn.classList.remove("text-themeOrange");
+
+    // action to turn off the strobe cycle
+    clearInterval(strobeTimeout);
 }
