@@ -14,4 +14,8 @@
     background-color: #f98f26;
     border-radius: 20px;
     border: 3px solid #f98f26;  
-  }
+}
+
+html {
+    scroll-behavior: smooth;
+}
