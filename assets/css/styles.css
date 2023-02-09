@@ -1171,6 +1171,10 @@ input:checked + .toggle-bg {
   margin-top: 0.5rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -1301,6 +1305,18 @@ input:checked + .toggle-bg {
 
 .w-64 {
   width: 16rem;
+}
+
+.w-\[\] {
+  width: ;
+}
+
+.w-\[150\] {
+  width: 150;
+}
+
+.w-\[200px\] {
+  width: 200px;
 }
 
 .flex-1 {
@@ -2128,5 +2144,9 @@ input:checked + .toggle-bg {
 
   .sm\:w-10 {
     width: 2.5rem;
+  }
+
+  .sm\:w-\[300px\] {
+    width: 300px;
   }
 }

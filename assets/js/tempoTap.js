@@ -13,7 +13,7 @@ function tempoTap() {
     timeSeconds = new Date;
     msecs = timeSeconds.getTime();
 
-    if ((msecs - msecsPrevious) > 1000) { // reset tap count after 1 second
+    if ((msecs - msecsPrevious) > 10000) { // reset tap count after 10 seconds
     count = 0;
     }
 
