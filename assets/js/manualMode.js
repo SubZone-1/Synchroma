@@ -1,4 +1,6 @@
-function manualMode() {
+import { MM_turnOff_aux } from "./offBtn.js";
+
+window.manualMode = () => {
     // show manual mode
     document.getElementById("manual-mode-container").removeAttribute("hidden");
     // hide auto mode
@@ -26,7 +28,7 @@ function manualMode() {
 
 var BPMvalueSource = "manual"; // default value
 
-function useManual() {
+window.useManual = () => {
     // disable manual value button (selected) and enable tap value button
     document.getElementById("useManual-btn").setAttribute("disabled", "true");
     document.getElementById("useTap-btn").removeAttribute("disabled");
@@ -40,10 +42,12 @@ function useManual() {
     document.getElementById("useTap-btn").classList.add("text-text-gray-700");
     document.getElementById("useTap-btn").classList.add("hover:scale-1050");
 
+    MM_turnOff_aux();
+
     BPMvalueSource = "manual";
 }
 
-function useTap() {
+window.useTap = () => {
     // disable tap value button (selected) and enable manual value button
     document.getElementById("useTap-btn").setAttribute("disabled", "true");
     document.getElementById("useManual-btn").removeAttribute("disabled");
@@ -57,5 +61,9 @@ function useTap() {
     document.getElementById("useManual-btn").classList.add("text-text-gray-700");
     document.getElementById("useManual-btn").classList.add("hover:scale-1050");
 
+    MM_turnOff_aux();
+
     BPMvalueSource = "tap";
 }
+
+export { BPMvalueSource };

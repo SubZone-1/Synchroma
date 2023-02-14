@@ -1,3 +1,11 @@
+// variable imports
+import { BPMvalueSource } from "./manualMode.js";
+import { manualBPM_text } from "./manualModeStrobes.js";
+import { tapBPM } from "./tempoTap.js";
+
+
+import { manualStrobe, tapStrobe } from "./manualModeStrobes.js"; // function imports
+
 /* ----- Auto mode ON button ----- */
 function AM_turnOn() {
     var AM_onBtn = document.getElementById("AM-on");
@@ -17,28 +25,17 @@ function AM_turnOn() {
     AM_offBtn.classList.remove("text-themeOrange");
 }
 
-// manual bpm variable definition and event listener
-var manualBPM = 0;
-var manualBPM_text = document.getElementById("manual-value");
-manualBPM_text.addEventListener("change", function() {
-    manualBPM = manualBPM_text.value;
-}, false);
-
-// strobe duration variable definition and event listener
-var duration = 100;
-var slider = document.getElementById("MM-duration-slider");
-slider.addEventListener("input", function() {
-    duration = slider.value;
-}, false);
-
 var strobeActive = false;
+document.getElementById("manual-value").addEventListener("change", function() {
+    manualBPM_text.classList.add("clicked");
+});
 
 /* ----- Manual mode ON button ----- */
-function MM_turnOn() {
-    //var manualBPM = document.getElementById("manual-value").value;
-    
-    if (!manualBPM && BPMvalueSource == "manual") {
+window.MM_turnOn = () => {    
+    if (!manualBPM_text.classList.contains("clicked") && BPMvalueSource == "manual") {
         window.alert("Please insert a BPM value or use the tempo tapper.");
+    } else if (manualBPM_text.value < 0 && BPMvalueSource == "manual") {
+        window.alert("Negative BPM values are not allowed.")
     } else if (!tapBPM && BPMvalueSource == "tap") {
         window.alert("Please use the tempo tapper or insert a BPM value.");
     } else {
@@ -67,52 +64,12 @@ function MM_turnOn() {
 
         strobeActive = true;
 
-        const body = document.querySelector("body");
-        var interval = 0;
-        var ranTimes = 0;
-
         if (BPMvalueSource == "manual") { 
-            interval = (60 / manualBPM) * 1000;//manualBPM not updating
-
-            // repeat once the interval expires
-            window.strobeTimeout = setInterval(function() {
-            // trigger strobe
-            body.classList.remove("bg-black");
-            body.classList.add("bg-white");
-
-            // kill strobe once the strobe duration expires
-            setTimeout(function() {
-                body.classList.remove("bg-white");
-                body.classList.add("bg-black");
-            }, duration);
-            
-            ranTimes++;
-            console.log("BPM: " + manualBPM + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes);
-            }, interval);
+            manualStrobe();
         } else if (BPMvalueSource == "tap") { 
-            interval = (60 / tapBPM) * 1000;//tapBPM not updating
-
-            // repeat once the interval expires
-            window.strobeTimeout = setInterval(function() {
-            // trigger strobe
-            body.classList.remove("bg-black");
-            body.classList.add("bg-white");
-
-            // kill strobe once the strobe duration expires
-            setTimeout(function() {
-                body.classList.remove("bg-white");
-                body.classList.add("bg-black");
-            }, duration);
-            
-            ranTimes++;
-            console.log("BPM: " + tapBPM + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes);
-            }, interval);
+            tapStrobe();
         }
     }
 }
 
-function killStrobe() {
-    strobeActive = false;
-    // function to turn off the strobe cycle
-    clearInterval(strobeTimeout);
-}
+export { strobeActive };
