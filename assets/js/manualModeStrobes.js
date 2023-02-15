@@ -44,7 +44,8 @@ export function manualStrobe() {
         }, manualBPM_interval);
     }
 
-    manualBPM_text.addEventListener("change", () => { // event listener
+    if (strobeActive == true) {
+        manualBPM_text.addEventListener("change", () => { // event listener
         clearInterval(manualStrobeTimeout); // kill unchanged strobe
         changed = true;
         lastManualBPMValue = manualBPM_text.value;
@@ -64,8 +65,9 @@ export function manualStrobe() {
             
             ranTimes++;
             console.log("BPM: " + lastManualBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes + " | Changed = " + changed);
-        }, manualBPM_interval);
-    }, false);
+            }, manualBPM_interval);
+        }, false);
+    } 
 }
 
 export function tapStrobe() {

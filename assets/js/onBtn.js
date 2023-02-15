@@ -53,8 +53,8 @@ document.getElementById("MM-on").addEventListener("click", () => {
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-    } else if (manualBPM_text.value < 0 && BPMvalueSource == "manual") {
-        toastr["error"]("Negative BPM values are not allowed.", "BPM error")
+    } else if (manualBPM_text.value <= 0 && BPMvalueSource == "manual") {
+        toastr["error"]("Negative or null BPM values are not allowed.", "BPM error")
 
         toastr.options = {
             "closeButton": true,
