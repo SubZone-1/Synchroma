@@ -1,6 +1,6 @@
 import { MM_turnOff_aux } from "./offBtn.js";
 
-window.manualMode = () => {
+document.getElementById("manual").addEventListener("click", () => {
     // show manual mode
     document.getElementById("manual-mode-container").removeAttribute("hidden");
     // hide auto mode
@@ -24,11 +24,11 @@ window.manualMode = () => {
 
     // variable used in scrollbar script
     selectedMode = "manual";
-}
+});
 
 var BPMvalueSource = "manual"; // default value
 
-window.useManual = () => {
+document.getElementById("useManual-btn").addEventListener("click", () => {
     // disable manual value button (selected) and enable tap value button
     document.getElementById("useManual-btn").setAttribute("disabled", "true");
     document.getElementById("useTap-btn").removeAttribute("disabled");
@@ -45,9 +45,9 @@ window.useManual = () => {
     MM_turnOff_aux();
 
     BPMvalueSource = "manual";
-}
+});
 
-window.useTap = () => {
+document.getElementById("useTap-btn").addEventListener("click", () => {
     // disable tap value button (selected) and enable manual value button
     document.getElementById("useTap-btn").setAttribute("disabled", "true");
     document.getElementById("useManual-btn").removeAttribute("disabled");
@@ -64,6 +64,6 @@ window.useTap = () => {
     MM_turnOff_aux();
 
     BPMvalueSource = "tap";
-}
+});
 
 export { BPMvalueSource };

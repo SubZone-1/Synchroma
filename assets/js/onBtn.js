@@ -3,11 +3,11 @@ import { BPMvalueSource } from "./manualMode.js";
 import { manualBPM_text } from "./manualModeStrobes.js";
 import { tapBPM } from "./tempoTap.js";
 
-
-import { manualStrobe, tapStrobe } from "./manualModeStrobes.js"; // function imports
+// function imports
+import { manualStrobe, tapStrobe } from "./manualModeStrobes.js";
 
 /* ----- Auto mode ON button ----- */
-function AM_turnOn() {
+document.getElementById("AM-on").addEventListener("click", () => {
     var AM_onBtn = document.getElementById("AM-on");
     var AM_offBtn = document.getElementById("AM-off");
 
@@ -23,15 +23,15 @@ function AM_turnOn() {
     AM_offBtn.classList.add("text-gray-700");
     AM_offBtn.classList.add("hover:scale-1125");
     AM_offBtn.classList.remove("text-themeOrange");
-}
+});
 
 var strobeActive = false;
-document.getElementById("manual-value").addEventListener("change", function() {
+document.getElementById("manual-value").addEventListener("change", () => {
     manualBPM_text.classList.add("clicked");
 });
 
 /* ----- Manual mode ON button ----- */
-window.MM_turnOn = () => {    
+document.getElementById("MM-on").addEventListener("click", () => {    
     if (!manualBPM_text.classList.contains("clicked") && BPMvalueSource == "manual") {
         window.alert("Please insert a BPM value or use the tempo tapper.");
     } else if (manualBPM_text.value < 0 && BPMvalueSource == "manual") {
@@ -70,6 +70,6 @@ window.MM_turnOn = () => {
             tapStrobe();
         }
     }
-}
+}); 
 
 export { strobeActive };

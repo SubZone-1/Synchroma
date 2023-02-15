@@ -1,7 +1,7 @@
 import { killManualModeStrobes } from "./manualModeStrobes.js"; // function imports
 
 /* ----- Auto mode OFF button ----- */
-function AM_turnOff() {
+document.getElementById("AM-off").addEventListener("click", () => {
     var AM_offBtn = document.getElementById("AM-off");
     var AM_onBtn = document.getElementById("AM-on");
 
@@ -16,10 +16,10 @@ function AM_turnOff() {
     AM_onBtn.classList.add("text-gray-700");
     AM_onBtn.classList.add("hover:scale-1125");
     AM_onBtn.classList.remove("text-themeOrange");
-}
+});
 
 /* ----- Manual mode OFF button ----- */
-window.MM_turnOff = () => { // only for HTML definition
+document.getElementById("MM-off").addEventListener("click", () => { // only for HTML call
     var MM_offBtn = document.getElementById("MM-off");
     var MM_onBtn = document.getElementById("MM-on");
     var resetTapperBtn_a = document.getElementById("reset-tapbpm-a");
@@ -43,7 +43,7 @@ window.MM_turnOff = () => { // only for HTML definition
     resetTapperBtn_h.classList.add("hover:text-themeOrange");
 
     killManualModeStrobes();
-}
+});
 
 export function MM_turnOff_aux() { // function duplicate for imports
     var MM_offBtn = document.getElementById("MM-off");

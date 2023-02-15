@@ -45,7 +45,7 @@
 
             <div id="auto-manual-container" class="w-[330px] ml-35px flex flex-row justify-between">
                 <button id="auto" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all" onclick="autoMode()" disabled>AUTO</button>
-                <button id="manual" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all" onclick="manualMode();">MANUAL</button>
+                <button id="manual" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all">MANUAL</button>
             </div>
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
@@ -133,8 +133,8 @@
                     <br>
     
                     <div id="AM-on-off-container" class="w-[330px] ml-35px flex justify-between">
-                        <button id="AM-off" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all" onclick="AM_turnOff()">OFF</button>
-                        <button id="AM-on" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all" onclick="AM_turnOn();">ON</button>
+                        <button id="AM-off" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all">OFF</button>
+                        <button id="AM-on" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all">ON</button>
                     </div>
                 </div>
             </div>
@@ -164,9 +164,10 @@
                                 <h4 class="float-left font-semibold text-sm text-gray-600">ROUNDED VALUE:</h4>
                                 <h4 id="rounded-value" class="mr-[15px] float-right font-semibold text-sm text-gray-600">--- BPM</h4> 
 
+                                <!-- hidden input to store tapBPM value for event listener readability -->
                                 <input type="number" id="tap-bpm" class="tap-bpm" hidden>
 
-                                <h4 id="reset-tapbpm-h" class="float-left w-full text-sm font-thin cursor-pointer text-gray-500 hover:text-themeOrange"><a id="reset-tapbpm-a" onclick="resetCount()">(RESET)</a></h4>
+                                <h4 id="reset-tapbpm-h" class="float-left w-full text-sm font-thin cursor-pointer text-gray-500 hover:text-themeOrange"><a id="reset-tapbpm-a">(RESET)</a></h4>
                             </div>
 
                             <div id="tempo-tapper-container">
@@ -175,8 +176,8 @@
                         </div>
 
                         <div id="manual-tapper-values-container" class="w-full mt-3 flex flex-row justify-between">
-                            <button id="useManual-btn" class="w-[160px] h-8 mb-4 bg-white rounded font-bold text-sm text-themeOrange transition-all" onclick="useManual()" disabled>USE MANUAL VALUE</button>
-                            <button id="useTap-btn" class="w-[160px] h-8 mb-4 bg-white rounded font-bold text-sm text-gray-700 hover:scale-1050 transition-all" onclick="useTap();">USE TAP VALUE</button>
+                            <button id="useManual-btn" class="w-[160px] h-8 mb-4 bg-white rounded font-bold text-sm text-themeOrange transition-all" disabled>USE MANUAL VALUE</button>
+                            <button id="useTap-btn" class="w-[160px] h-8 mb-4 bg-white rounded font-bold text-sm text-gray-700 hover:scale-1050 transition-all">USE TAP VALUE</button>
                         </div>
 
                         <div id="MM-strobe-duration-container" class="w-full">
@@ -195,8 +196,8 @@
 
                 <div id="MM-bottom-position-container" class="absolute bottom-0">
                     <div id="MM-on-off-container" class="w-[330px] ml-35px flex justify-between">
-                        <button id="MM-off" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all" onclick="MM_turnOff()" disabled>OFF</button>
-                        <button id="MM-on" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all" onclick="MM_turnOn();">ON</button>
+                        <button id="MM-off" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all" disabled>OFF</button>
+                        <button id="MM-on" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all">ON</button>
                     </div>
                 </div>
             </div>
