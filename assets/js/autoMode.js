@@ -1,4 +1,4 @@
-function autoMode() {
+document.getElementById("auto").addEventListener("click", () => {
     // show auto mode
     document.getElementById("auto-mode-container").removeAttribute("hidden");
     // hide manual mode
@@ -22,4 +22,4 @@ function autoMode() {
 
     // variable used in scrollbar script
     selectedMode = "auto";
-}
+});

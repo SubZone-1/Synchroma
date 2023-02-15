@@ -1,5 +1,6 @@
 // variable imports
 import { BPMvalueSource } from "./manualMode.js";
+import { strobeActive } from "./onBtn.js";
 
 var manualBPM_interval = 0;
 var tapBPM_interval = 0;
@@ -68,12 +69,19 @@ export function manualStrobe() {
 }
 
 export function tapStrobe() {
-    let lastTapBPMValue = tapBPM_text.value; // default value
-    var ranTimes = 0;
+    document.getElementById("tap-bpm").addEventListener("change", handleTapBPM(), false); // event listener for hidden input values
+}
 
-    if (changed == false) {
+export function handleTapBPM() {
+    if (strobeActive == true) {
+        clearInterval(tapStrobeTimeout); // kill unchanged strobe
+        
+        let lastTapBPMValue = tapBPM_text.value;
+        var ranTimes = 0;
+
+        clearInterval(tapStrobeTimeout_changed); // so that old value doesn't interfere with new value
         tapBPM_interval = (60 / lastTapBPMValue) * 1000;
-        tapStrobeTimeout = setInterval(() => {
+        tapStrobeTimeout_changed = setInterval(() => {
             // trigger strobe
             body.classList.remove("bg-black");
             body.classList.add("bg-white");
@@ -85,36 +93,9 @@ export function tapStrobe() {
             }, duration);
             
             ranTimes++;
-            console.log("BPM: " + lastTapBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes + " | Changed = " + changed);
+            console.log("BPM: " + lastTapBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes);
         }, tapBPM_interval);
     }
-
-    document.getElementById("tap-bpm").addEventListener("change", handleTapBPM(), false); // event listener for hidden input values
-}
-
-export function handleTapBPM() {
-    clearInterval(tapStrobeTimeout); // kill unchanged strobe
-    
-    changed = true;
-    let lastTapBPMValue = tapBPM_text.value;
-    var ranTimes = 0;
-
-    clearInterval(tapStrobeTimeout_changed); // so that old value doesn't interfere with new value
-    tapBPM_interval = (60 / lastTapBPMValue) * 1000;
-    tapStrobeTimeout_changed = setInterval(() => {
-        // trigger strobe
-        body.classList.remove("bg-black");
-        body.classList.add("bg-white");
-
-        // kill strobe once the strobe duration expires
-        setTimeout(() => {
-            body.classList.remove("bg-white");
-            body.classList.add("bg-black");
-        }, duration);
-        
-        ranTimes++;
-        console.log("BPM: " + lastTapBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes + " | Changed = " + changed);
-    }, tapBPM_interval);
 }
 
 export function killManualModeStrobes() {

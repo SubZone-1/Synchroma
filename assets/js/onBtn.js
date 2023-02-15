@@ -26,6 +26,7 @@ document.getElementById("AM-on").addEventListener("click", () => {
 });
 
 var strobeActive = false;
+
 document.getElementById("manual-value").addEventListener("change", () => {
     manualBPM_text.classList.add("clicked");
 });
@@ -33,11 +34,66 @@ document.getElementById("manual-value").addEventListener("change", () => {
 /* ----- Manual mode ON button ----- */
 document.getElementById("MM-on").addEventListener("click", () => {    
     if (!manualBPM_text.classList.contains("clicked") && BPMvalueSource == "manual") {
-        window.alert("Please insert a BPM value or use the tempo tapper.");
+        toastr["error"]("Please insert a BPM value or use the tempo tapper.", "BPM error")
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     } else if (manualBPM_text.value < 0 && BPMvalueSource == "manual") {
-        window.alert("Negative BPM values are not allowed.")
+        toastr["error"]("Negative BPM values are not allowed.", "BPM error")
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     } else if (!tapBPM && BPMvalueSource == "tap") {
-        window.alert("Please use the tempo tapper or insert a BPM value.");
+
+        toastr["error"]("Please use the tempo tapper or insert a BPM value.", "BPM error")
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     } else {
         var MM_onBtn = document.getElementById("MM-on");
         var MM_offBtn = document.getElementById("MM-off");
@@ -47,6 +103,7 @@ document.getElementById("MM-on").addEventListener("click", () => {
         // disable on button (selected) and reset tapper bpm and enable off button
         MM_onBtn.setAttribute("disabled", "true");
         MM_offBtn.removeAttribute("disabled");
+        resetTapperBtn_a.innerHTML = "(TURN OFF TO RESET)";
         resetTapperBtn_a.setAttribute("disabled", "true");
         resetTapperBtn_a.removeAttribute("onclick");
 
@@ -71,5 +128,9 @@ document.getElementById("MM-on").addEventListener("click", () => {
         }
     }
 }); 
+
+document.getElementById("MM-off").addEventListener("click", () => {
+    strobeActive = false;
+});
 
 export { strobeActive };

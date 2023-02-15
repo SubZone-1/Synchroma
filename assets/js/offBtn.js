@@ -1,4 +1,5 @@
-import { killManualModeStrobes } from "./manualModeStrobes.js"; // function imports
+// function imports
+import { killManualModeStrobes } from "./manualModeStrobes.js";
 
 /* ----- Auto mode OFF button ----- */
 document.getElementById("AM-off").addEventListener("click", () => {
@@ -28,6 +29,7 @@ document.getElementById("MM-off").addEventListener("click", () => { // only for 
     // disable off button (selected) and enable on button and reset tapper bpm
     MM_offBtn.setAttribute("disabled", "true");
     MM_onBtn.removeAttribute("disabled");
+    resetTapperBtn_a.innerHTML = "(RESET)";
     resetTapperBtn_a.removeAttribute("disabled");
     resetTapperBtn_a.setAttribute("onclick", "resetCount()");
 
@@ -54,6 +56,7 @@ export function MM_turnOff_aux() { // function duplicate for imports
     // disable off button (selected) and enable on button and reset tapper bpm
     MM_offBtn.setAttribute("disabled", "true");
     MM_onBtn.removeAttribute("disabled");
+    resetTapperBtn_a.innerHTML = "(RESET)";
     resetTapperBtn_a.removeAttribute("disabled");
     resetTapperBtn_a.setAttribute("onclick", "resetCount()");
 

@@ -9,13 +9,15 @@ var msecsFirst = 0;
 var msecsPrevious = 0;
 var tapBPM = 0;
 
-document.getElementById("reset-tapbpm-a").addEventListener("click", () => {
+window.resetCount = () => {
   count = 0;
+  msecsFirst = 0;
+  msecsPrevious = 0;
+  tapBPM = 0;
   document.getElementById("avg-value").innerHTML = "--- BPM";
   document.getElementById("rounded-value").innerHTML = "--- BPM";
   document.getElementById("tap-bpm").value = 0; // hidden input
-});
-
+}
 
 document.getElementById("tap-btn").addEventListener("click", () => {
   let timeSeconds = new Date;

@@ -10,13 +10,22 @@
     <title>Synchroma: Audio-Synced Strobe Lighting</title>
     <link rel="icon" href="assets\img\logo-V2\symbol.png">
 
-    <!-- Main CSS Sheet -->
+    <!-- Main CSS Sheet (Tailwind CSS) -->
     <link rel="stylesheet" href="assets\css\styles.css" />
     <!-- Extra Styling -->
     <link rel="stylesheet" href="assets\css\extra.css"/>
 
     <!-- Fontawesome Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!-- toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="bg-black min-h-screen overflow-hidden">
     <div id="sidebar" class="transition-all ease-in-out duration-300">
@@ -27,7 +36,7 @@
 
             <button id="opencloseSidebar" class="my-[20px] mx-[20px] h-8 w-8 sm:h-10 sm:w-10 top-[5px] sm:top-0 left-[305px] sm:left-400px bg-white text-xl opacity-50 flex items-center justify-center rounded absolute sm:fixed hover:scale-1125 hover:opacity-100 transition-all" onclick="closeSidebar()"><i class="fa-solid fa-caret-left"></i></button>
 
-            <button id="fullscreen-btn" class="my-[20px] mx-[20px] sm:mt-[30px] h-8 w-8 sm:h-10 sm:w-10 top-[40px] left-[305px] sm:left-400px absolute sm:fixed bg-white text-xl opacity-50 flex items-center justify-center rounded hover:scale-1125 hover:opacity-100 transition-all" onclick="fullscreen()"><i class="fa solid fa-expand"></i></button>
+            <button id="fullscreen-btn" class="my-[20px] mx-[20px] sm:mt-[30px] h-8 w-8 sm:h-10 sm:w-10 top-[40px] left-[305px] sm:left-400px absolute sm:fixed bg-white text-xl opacity-50 flex items-center justify-center rounded hover:scale-1125 hover:opacity-100 transition-all"><i class="fa solid fa-expand"></i></button>
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
@@ -44,7 +53,7 @@
             <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">STROBE SYNC MODE</h3>
 
             <div id="auto-manual-container" class="w-[330px] ml-35px flex flex-row justify-between">
-                <button id="auto" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all" onclick="autoMode()" disabled>AUTO</button>
+                <button id="auto" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all" disabled>AUTO</button>
                 <button id="manual" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all">MANUAL</button>
             </div>
 
@@ -167,7 +176,7 @@
                                 <!-- hidden input to store tapBPM value for event listener readability -->
                                 <input type="number" id="tap-bpm" class="tap-bpm" hidden>
 
-                                <h4 id="reset-tapbpm-h" class="float-left w-full text-sm font-thin cursor-pointer text-gray-500 hover:text-themeOrange"><a id="reset-tapbpm-a">(RESET)</a></h4>
+                                <h4 id="reset-tapbpm-h" class="float-left w-full text-sm font-thin cursor-pointer text-gray-500 hover:text-themeOrange"><a id="reset-tapbpm-a" onclick="resetCount()">(RESET)</a></h4>
                             </div>
 
                             <div id="tempo-tapper-container">

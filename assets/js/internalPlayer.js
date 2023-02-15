@@ -1,10 +1,10 @@
 // Check for BlobURL support
 var blob = window.URL || window.webkitURL;
     if (!blob) {
-        console.log('Your browser does not support Blob URLs :(');          
+        console.log("Your browser does not support Blob URL's.");          
     }
 
-document.getElementById("player-file").addEventListener("change", function() {
+document.getElementById("player-file").addEventListener("change", () => {
 
     var file = this.files[0],
      fileURL = blob.createObjectURL(file);
