@@ -4,6 +4,8 @@ import "./assets/css/extra.css";
 
 /* ---------- JS scripts ---------- */
 require("./assets/js/autoMode");
+require("./assets/js/autoModeStrobes");
+require("./assets/js/BeatDetect");
 require("./assets/js/durationSlider");
 require("./assets/js/frequencyRangeFocus");
 require("./assets/js/fullscreen");
@@ -13,7 +15,7 @@ require("./assets/js/manualModeStrobes");
 require("./assets/js/offBtn");
 require("./assets/js/onBtn");
 require("./assets/js/opencloseSidebar");
-require("./assets/js/sensSlider");
+require("./assets/js/thresholdSlider");
 require("./assets/js/sidebarScroll");
 require("./assets/js/tempoTap");
 

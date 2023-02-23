@@ -4,7 +4,7 @@ var midBtn = document.getElementById("mid");
 var highBtn = document.getElementById("high");
 var masterBtn = document.getElementById("master");
 
-var selectedRange = "low"; // default value
+var selectedRange = "master"; // default value
 
 document.getElementById("low").addEventListener("click", () => {
     if (selectedRange == "mid" || selectedRange == "high" || selectedRange == "master") {

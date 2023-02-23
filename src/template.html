@@ -41,11 +41,17 @@
             <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">INTERNAL PLAYER <a id="show-hide-a" class="text-gray-600 font-thin cursor-pointer hover:text-themeOrange">(HIDE)</a></h3>
 
             <div id="internal-player-container" class="w-[330px] ml-35px mt--3 mb-3">
-                <input type="file" id="player-file" class="mb-3 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="audio/*">
+                <div class="w-full">
+                    <p class="float-left">Play/Pause on ON/OFF</p>
+                    <input id="play-pause-check" type="checkbox" class="float-right" checked>
+                </div>
+
+                <input type="file" id="player-file" class="mb-3 mt-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="audio/*">
+
                 <audio id="internal-player" class="w-full" controls></audio>
 
                 <p id="now-playing" class="mt-3 text-center" hidden></p>
-            </div> <!-- TODO: add function to turn on strobe when clicking play -->
+            </div>
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
@@ -68,24 +74,27 @@
                             <option value="" class="device text-left">&nbsp;Integrated Player</option>
                             <option value="" class="device text-left">&nbsp;Example Device</option>
                         </select>
+
+                        <!-- hidden input to store trackBPM value for event listener readability -->
+                        <input type="number" id="track-bpm" hidden>
                     </div>
     
                     <div id="frequency-range-focus-container" class="w-[330px] ml-35px">
                         <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">FREQUENCY RANGE FOCUS</h5>
-    
+
                         <div id="low-mid-high-container" class="w-full flex justify-between">
-                            <button id="low" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-themeOrange transition-all">LOW</button>
+                            <button id="low" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-gray-700 hover:scale-1125 transition-all">LOW</button>
                             <button id="mid" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-gray-700 hover:scale-1125 transition-all">MID</button>
                             <button id="high" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-gray-700 hover:scale-1125 transition-all">HIGH</button>
                         </div>
-                        <button id="master" class="w-full h-12 mb-3 pt-[2px] bg-white rounded font-bold text-base text-gray-700 hover:scale-1125 transition-all">MASTER</button>
+                        <button id="master" class="w-full h-12 mb-3 pt-[2px] bg-white rounded font-bold text-base text-themeOrange transition-all">MASTER</button>
                     </div>
     
                     <div id="detection-sensitivity-container" class="w-[330px] ml-35px">
                         <h5 id="sens-label" class="mt-3 mb-1 font-semibold text-sm text-gray-500"></h5>
     
-                        <div id="sens-slider-container" class="w-full">
-                            <input type="range" min="0" max="100" value="50" class="sens-slider w-full" id="sens-slider">
+                        <div id="threshold-slider-container" class="w-full">
+                            <input type="range" min="0" max="100" value="30" class="threshold-slider w-full" id="threshold-slider">
                             <p class="float-left font-regular text-sm text-gray-600">0</p>
                             <p class="float-right font-regular text-sm text-gray-600">100</p>
                         </div>
@@ -97,9 +106,9 @@
                         <h5 id="AM-duration-label" class="mt-3 mb-1 font-semibold text-sm text-gray-500"></h5>
     
                         <div id="duration-slider-container" class="duration-slider-container">
-                            <input type="range" min="10" max="1000" value="200" class="duration-slider w-full" id="AM-duration-slider">
+                            <input type="range" min="10" max="200" value="100" step="5" class="duration-slider w-full" id="AM-duration-slider">
                             <p class="float-left font-regular text-sm text-gray-600">10</p>
-                            <p class="float-right font-regular text-sm text-gray-600">1000</p>
+                            <p class="float-right font-regular text-sm text-gray-600">200</p>
                         </div>
                     </div>
     
@@ -114,7 +123,7 @@
                             <div id="SCT-container" class="w-full">
                                 <h4 class="float-left font-semibold text-base text-gray-600">SOUND COME THROUGH</h4>
                                 <label id="SCT-check-container" class="float-right">
-                                    <input type="checkbox" checked disabled> <!-- TODO: only check when audio coming trough, change with javascript -->
+                                    <input type="checkbox" id="SCT-check" disabled> <!-- TODO: only check when audio coming trough, change with javascript -->
                                     <span class="SCT-checkmark"></span>
                                 </label>
                             </div>
@@ -123,7 +132,7 @@
                             
                             <div id="tempo-container" class="w-full">
                                 <h4 class="float-left font-semibold text-base text-gray-600">TEMPO:</h4>
-                                <h4 id="bpm" class="float-right font-semibold text-base text-gray-600">150BPM</h4> <!-- TODO: change with javascript -->
+                                <h4 id="bpm" class="float-right font-semibold text-base text-gray-600">--- BPM</h4>
                             </div>
     
                             <hr>

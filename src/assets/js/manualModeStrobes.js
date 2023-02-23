@@ -15,7 +15,7 @@ var tapStrobeTimeout_changed; // changed tap interval
 const body = document.body;
 
 // strobe duration variable definition and event listener
-var duration = 100;
+var duration = 100; // default value
 const slider = document.getElementById("MM-duration-slider");
 slider.addEventListener("input", () => {
     duration = slider.value;

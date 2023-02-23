@@ -1,4 +1,5 @@
 // function imports
+import { killAutoModeStrobes } from "./autoModeStrobes.js";
 import { killManualModeStrobes } from "./manualModeStrobes.js";
 
 /* ----- Auto mode OFF button ----- */
@@ -17,6 +18,12 @@ document.getElementById("AM-off").addEventListener("click", () => {
     AM_onBtn.classList.add("text-gray-700");
     AM_onBtn.classList.add("hover:scale-1125");
     AM_onBtn.classList.remove("text-themeOrange");
+
+    killAutoModeStrobes();
+
+    if (document.getElementById("play-pause-check").checked) {
+        document.getElementById("internal-player").pause(); // pause audio playback
+    }
 });
 
 /* ----- Manual mode OFF button ----- */
@@ -45,6 +52,10 @@ document.getElementById("MM-off").addEventListener("click", () => { // only for 
     resetTapperBtn_h.classList.add("hover:text-themeOrange");
 
     killManualModeStrobes();
+
+    if (document.getElementById("play-pause-check").checked) {
+        document.getElementById("internal-player").pause(); // pause audio playback
+    }
 });
 
 export function MM_turnOff_aux() { // function duplicate for imports
