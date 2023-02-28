@@ -4,11 +4,12 @@ import "./assets/css/extra.css";
 
 /* ---------- JS scripts ---------- */
 require("./assets/js/autoMode");
-require("./assets/js/autoModeStrobes");
+require("./assets/js/autoModeStrobes"); // TODO: fine-tune detection threshold and filters (detection method?)
 require("./assets/js/BeatDetect");
 require("./assets/js/durationSlider");
 require("./assets/js/frequencyRangeFocus");
 require("./assets/js/fullscreen");
+require("./assets/js/inputDevices");
 require("./assets/js/internalPlayer");
 require("./assets/js/manualMode");
 require("./assets/js/manualModeStrobes");
