@@ -1239,8 +1239,20 @@ input:checked + .toggle-bg {
   height: 4rem;
 }
 
+.h-\[300px\] {
+  height: 300px;
+}
+
 .h-4 {
   height: 1rem;
+}
+
+.h-\[500px\] {
+  height: 500px;
+}
+
+.h-\[\] {
+  height: ;
 }
 
 .max-h-screen {
@@ -1577,6 +1589,10 @@ input:checked + .toggle-bg {
   padding: 0.5rem;
 }
 
+.p-5 {
+  padding: 1.25rem;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1604,16 +1620,6 @@ input:checked + .toggle-bg {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-}
-
-.px-\[20px\] {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.py-\[20px\] {
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .px-2 {
@@ -2134,11 +2140,21 @@ input:checked + .toggle-bg {
     height: 2.5rem;
   }
 
+  .sm\:h-\[500px\] {
+    height: 500px;
+  }
+
   .sm\:w-10 {
     width: 2.5rem;
   }
 
   .sm\:w-\[300px\] {
     width: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:h-\[500px\] {
+    height: 500px;
   }
 }

@@ -19,9 +19,9 @@ const audioContext = new AudioContext();
 // create a filter node (to analyze separate frequency ranges)
 const filter = audioContext.createBiquadFilter();
 
-// create an analyser node
+// create an analyser node and set fftSize
 const analyser = audioContext.createAnalyser();
-//analyser.fftSize = 2048;
+analyser.fftSize = 2048;
 
 // create a source (internal player)
 const source = audioContext.createMediaElementSource(document.getElementById("internal-player"));
@@ -33,7 +33,7 @@ document.getElementById("internal-player").addEventListener("change", () => {
 
 // connect the source audio (from internal player) to destination
 source.connect(audioContext.destination);
-//source.connect(analyser);
+filter.connect(analyser);
 
 // set up the data array
 const dataArray = new Uint8Array(analyser.frequencyBinCount);
@@ -79,16 +79,28 @@ export function trackStrobe() {
             if (selectedFrequencyRange == "low") {
                 filter.type = "lowpass";
                 filter.frequency.value = 200; // Hz
-                source.connect(filter).connect(analyser);
+                source.connect(filter);
+                filter.connect(analyser);
+
+                source.connect(audioContext.destination);
             } else if (selectedFrequencyRange == "mid") {
                 filter.type = "bandpass";
-                source.connect(filter).connect(analyser);
+                source.connect(filter);
+                filter.connect(analyser);
+
+                source.connect(audioContext.destination);
             } else if (selectedFrequencyRange == "high") {
                 filter.type = "highpass";
-                source.connect(filter).connect(analyser);
+                source.connect(filter);
+                filter.connect(analyser);
+
+                source.connect(audioContext.destination);
             } else { // no filter, all frequencies pass through
                 filter.type = "allpass";
-                source.connect(filter).connect(analyser);
+                source.connect(filter);
+                filter.connect(analyser);
+
+                source.connect(audioContext.destination);
             }
 
             // set the analyser to get frequency data from the filtered audio
@@ -166,3 +178,5 @@ export function killAutoModeStrobes() {
 
     changed = false;
 }
+
+export { audioContext, source };

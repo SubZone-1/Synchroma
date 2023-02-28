@@ -20,9 +20,9 @@ document.getElementById("show-hide-a").addEventListener("click", () => {
 // execute function on page load and window resize
 window.onresize = window.onload = () => {
     if (selectedMode = "auto") { // when auto strobe sync mode is selected
-        if (playerHidden == false && window.innerHeight <= 1050) { // if internal player is being shown and viewport height is lower or equals 1050px
+        if (playerHidden == false && window.innerHeight <= 1120) { // if internal player is being shown and viewport height is lower or equals 1120px
             document.getElementById("AM-bottom-position-container").classList.remove("absolute");
-        } else if (playerHidden == true && window.innerHeight <= 940) { // if internal player is hidden and viewport height is lower or equals 940px
+        } else if (playerHidden == true && window.innerHeight <= 860) { // if internal player is hidden and viewport height is lower or equals 860px
             document.getElementById("AM-bottom-position-container").classList.remove("absolute");
         } else {
             document.getElementById("AM-bottom-position-container").classList.add("absolute"); // in order to ignore DOM and stick element to the bottom of the sidebar

@@ -20,6 +20,7 @@ const beatDetect = new BeatDetect({
 });
 
 const playerFile = document.getElementById("player-file");
+const player = document.getElementById("internal-player");
 
 let file;
 let fileURL;

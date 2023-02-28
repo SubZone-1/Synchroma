@@ -26,6 +26,7 @@
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.2.4",
+    "web-audio-peak-meter": "^2.1.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
