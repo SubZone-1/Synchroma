@@ -13,6 +13,7 @@ module.exports = {
       colors: {
         "themeOrange": "#f98f26",
         "themeBlack": "#1f2937",
+        "themeOrangeGradient": "linear-gradient(0deg, rgba(172,99,26,1) 0%, rgba(249,143,38,0.7961309523809523) 1%, rgba(255,255,255,1) 100%",
       },
       width: {
         "400px": "400px",
