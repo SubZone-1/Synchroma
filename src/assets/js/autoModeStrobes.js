@@ -40,11 +40,18 @@ const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
 var trackBPM_interval = 0;
 var trackBPM_text = document.getElementById("track-bpm");
+var inputDevice = document.getElementById("select-input-device");
+var inputDevice_text = "Internal Player"; // default option
 var changed = false; // in order to activate the strobe before event the listener gets triggered
 var isActive = false; // in order to check if strobe is on or off
 var trackStrobeTimeout; // unchanged track interval
 var trackStrobeTimeout_changed; // changed track interval
 const body = document.body;
+
+inputDevice.addEventListener("change", event => { // get selected device name (label)
+    var inputDevice_option = event.target.selectedOptions[0];
+    inputDevice_text = inputDevice_option.label;
+});
 
 // strobe duration event listener
 var duration = 100; // default value
@@ -60,12 +67,12 @@ slider1.addEventListener("input", () => {
     threshold = slider1.value;
 }, false);
 
-/*document.getElementById("AM-off").addEventListener("click", () => {
+document.getElementById("AM-off").addEventListener("click", () => {
     isActive = false;
 });
 document.getElementById("AM-on").addEventListener("click", () => {
     isActive = true;
-});*/
+});
 
 export function trackStrobe() {
     let lastTrackBPMValue = trackBPM_text.value; // default value
@@ -128,12 +135,12 @@ export function trackStrobe() {
                 }, duration);
                 
                 ranTimes++;
-                console.log("BPM: " + lastTrackBPMValue + " (device: Internal Player) | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
+                console.log("Device: " + inputDevice_text + " | BPM: " + lastTrackBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
             }
         }, trackBPM_interval);
     }
-    /*
-    trackBPM_text.addEventListener("change", () => { // event listener
+    
+    document.getElementById("BPM-multipliers").addEventListener("click", () => { // event listener
         if (isActive == true) { // only runs when auto mode is ON
             clearInterval(trackStrobeTimeout); // kill unchanged strobe
             changed = true;
@@ -152,6 +159,8 @@ export function trackStrobe() {
                 }
                 averageAmplitude /= dataArray.length;
 
+                console.log(averageAmplitude);
+
                 // if average amplitude is above a certain threshold, then there is a beat
                 if (averageAmplitude > threshold) {
                     // trigger strobe
@@ -165,11 +174,11 @@ export function trackStrobe() {
                     }, duration);
                     
                     ranTimes++;
-                    console.log("BPM: " + lastTrackBPMValue + " (device: Internal Player) | Strobe duration: " + duration + "ms | " + "Beat detection senitivty: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed);
+                    console.log("Device: " + inputDevice_text + " | BPM: " + lastTrackBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
                 }
             }, trackBPM_interval);
         }
-    }, false);*/
+    });
 }
 
 export function killAutoModeStrobes() {

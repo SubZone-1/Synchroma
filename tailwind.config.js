@@ -12,6 +12,7 @@ module.exports = {
       },
       colors: {
         "themeOrange": "#f98f26",
+        "themeBlack": "#1f2937",
       },
       width: {
         "400px": "400px",

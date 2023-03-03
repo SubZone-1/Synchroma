@@ -96,9 +96,7 @@ document.getElementById("AM-on").addEventListener("click", () => {
             AM_offBtn.classList.add("hover:scale-1125");
             AM_offBtn.classList.remove("text-themeOrange");
 
-            document.getElementById("bpm").innerHTML = trackBPM + " BPM"
-
-            trackStrobe();
+            trackStrobe(); // activate strobe
 
             if (document.getElementById("play-pause-check").checked) {
                 document.getElementById("internal-player").play(); // start audio playback
@@ -202,9 +200,9 @@ document.getElementById("MM-on").addEventListener("click", () => {
         strobeActive = true;
 
         if (BPMvalueSource == "manual") { 
-            manualStrobe();
+            manualStrobe(); // activate strobe (manual value)
         } else if (BPMvalueSource == "tap") { 
-            tapStrobe();
+            tapStrobe(); // activate strobe (BPM tapper value)
         }
 
         if (document.getElementById("play-pause-check").checked) {

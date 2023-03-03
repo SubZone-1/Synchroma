@@ -1,3 +1,4 @@
+// BeatDetect.js
 import BeatDetect from './BeatDetect.js';
 
 // Check for BlobURL support
@@ -35,7 +36,7 @@ playerFile.addEventListener("change", () => {
     console.log('File type: ' + file.type);
     console.log('File BlobURL: ' + fileURL);
 
-    document.getElementById('internal-player').src = fileURL;
+    player.src = fileURL;
     document.getElementById('now-playing').innerHTML = "<b>Playing: </b>" + file.name;
     document.getElementById('now-playing').removeAttribute("hidden");
     // select internal player as input device
@@ -52,9 +53,47 @@ playerFile.addEventListener("change", () => {
         console.log("First Bar: " + info.firstBar);
 
         document.getElementById("track-bpm").value = trackBPM; // hidden input
+
+        document.getElementById("BPM-multipliers-label").removeAttribute("hidden");
+        document.getElementById("BPM-multipliers").removeAttribute("hidden");
+        document.getElementById("bpm").querySelector("span").innerHTML = trackBPM;
+
+        toastr["success"]("The loaded track's BPM has finished calculating. You can now turn on the strobe.", "BPM Found")
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     }).catch(error => {
         console.log(error);
     });
+});
+
+/* ----- SOUND COME THROUGH BPM multipliers ----- */
+document.getElementById("halfspeed").addEventListener("click", () => {
+    trackBPM = trackBPM / 2;
+
+    document.getElementById("track-bpm").value = trackBPM; // hidden input
+    document.getElementById("bpm").querySelector("span").innerHTML = trackBPM;
+});
+document.getElementById("doublespeed").addEventListener("click", () => {
+    trackBPM = trackBPM * 2;
+
+    document.getElementById("track-bpm").value = trackBPM; // hidden input
+    document.getElementById("bpm").querySelector("span").innerHTML = trackBPM;
 });
 
 document.getElementById("show-hide-a").addEventListener("click", () => {

@@ -1,3 +1,4 @@
+// node imports (Web Audio API)
 import { audioContext, source } from "./autoModeStrobes.js";
 
 document.getElementById("auto").addEventListener("click", () => {

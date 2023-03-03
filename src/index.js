@@ -3,7 +3,7 @@ import "./assets/css/styles.css";
 import "./assets/css/extra.css";
 
 /* ---------- JS scripts ---------- */
-require("./assets/js/autoMode");
+require("./assets/js/autoMode"); // TODO: find a way to disable the ON button until the BPM has finished calculating
 require("./assets/js/autoModeStrobes"); // TODO: fine-tune detection threshold and filters (detection method?)
 require("./assets/js/BeatDetect");
 require("./assets/js/durationSlider");
@@ -16,9 +16,9 @@ require("./assets/js/manualModeStrobes");
 require("./assets/js/offBtn");
 require("./assets/js/onBtn");
 require("./assets/js/opencloseSidebar");
-require("./assets/js/thresholdSlider");
 require("./assets/js/sidebarScroll");
-require("./assets/js/tempoTap"); // TODO: replace tempo tapper calculation method
+require("./assets/js/tempoTap"); // TODO: find a way to pause strobe while tap count is 1-2
+require("./assets/js/thresholdSlider");
 
 /* ---------- Images ---------- */
 import symbol from "./assets/img/logo-V2/symbol.png";                               // 1

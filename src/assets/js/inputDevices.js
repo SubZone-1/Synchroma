@@ -1,6 +1,6 @@
 const inputSelect = document.getElementById("select-input-device");
 
-// ask the user for permission to access their audio input devices
+// ask the user for permission to access their audio input devices (Media Capture and Streams API)
 navigator.mediaDevices.getUserMedia({ audio: true })
     .then(() => {
         // permission granted, enumerate the available input devices
