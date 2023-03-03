@@ -48,6 +48,12 @@
 
                 <input type="file" id="player-file" class="mb-3 mt-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 shadow-lg" accept="audio/*">
 
+                <!-- BPM loader -->
+                <div id="loader-container" class="w-full h-10 pt-2" hidden>
+                    <div class="loader"></div>
+                </div>
+                <p id="loader-label" class="text-center" hidden>Calculating BPM...</p>
+
                 <audio id="internal-player" class="w-full" controls></audio>
 
                 <p id="now-playing" class="mt-3 text-center" hidden></p>

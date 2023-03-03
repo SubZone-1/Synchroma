@@ -42,6 +42,11 @@ playerFile.addEventListener("change", () => {
     // select internal player as input device
     document.getElementById('select-input-device').selectedIndex = "1";
 
+    if (!trackBPM) {
+        document.getElementById("loader-container").removeAttribute("hidden");
+        document.getElementById("loader-label").removeAttribute("hidden");
+    }
+
     beatDetect.getBeatInfo({
         url: fileURL
     }).then(info => {
@@ -53,6 +58,9 @@ playerFile.addEventListener("change", () => {
         console.log("First Bar: " + info.firstBar);
 
         document.getElementById("track-bpm").value = trackBPM; // hidden input
+
+        document.getElementById("loader-container").setAttribute("hidden", true);
+        document.getElementById("loader-label").setAttribute("hidden", true);
 
         document.getElementById("BPM-multipliers-label").removeAttribute("hidden");
         document.getElementById("BPM-multipliers").removeAttribute("hidden");

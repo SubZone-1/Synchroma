@@ -83,20 +83,20 @@ export function trackStrobe() {
         trackStrobeTimeout = setInterval(() => {
             // change filter type according to selected frequency range
             // NOTE: filtered audio (filter node) is only read by the analyser, only the unchanged audio (source node) comes trough the speakers (destination)
-            if (selectedFrequencyRange == "low") {
+            if (selectedFrequencyRange == "low") { // lowpass
                 filter.type = "lowpass";
                 filter.frequency.value = 200; // Hz
                 source.connect(filter);
                 filter.connect(analyser);
 
                 source.connect(audioContext.destination);
-            } else if (selectedFrequencyRange == "mid") {
+            } else if (selectedFrequencyRange == "mid") { // bandpass
                 filter.type = "bandpass";
                 source.connect(filter);
                 filter.connect(analyser);
 
                 source.connect(audioContext.destination);
-            } else if (selectedFrequencyRange == "high") {
+            } else if (selectedFrequencyRange == "high") { // highpass
                 filter.type = "highpass";
                 source.connect(filter);
                 filter.connect(analyser);
