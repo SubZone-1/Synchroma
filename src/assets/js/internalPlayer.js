@@ -42,14 +42,14 @@ playerFile.addEventListener("change", () => {
     // select internal player as input device
     document.getElementById('select-input-device').selectedIndex = "1";
 
-    if (!trackBPM) {
+    if (!trackBPM) { // show BPM loader while trackBPM is undefined
         document.getElementById("loader-container").removeAttribute("hidden");
         document.getElementById("loader-label").removeAttribute("hidden");
     }
 
     beatDetect.getBeatInfo({
         url: fileURL
-    }).then(info => {
+    }).then(info => { // after calculation is done
         trackBPM = Math.round(info.bpm);
         
         console.log("Track BPM (average): " + info.bpm);
@@ -85,8 +85,31 @@ playerFile.addEventListener("change", () => {
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-    }).catch(error => {
+    }).catch(error => { // throw error
         console.log(error);
+        
+        document.getElementById("loader-container").setAttribute("hidden", true);
+        document.getElementById("loader-label").setAttribute("hidden", true);
+
+        toastr["error"](error, "BPM error")
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     });
 });
 
