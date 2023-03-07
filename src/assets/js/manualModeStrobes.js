@@ -12,7 +12,7 @@ var manualStrobeTimeout; // unchanged manual interval
 var manualStrobeTimeout_changed; // changed manual interval
 var tapStrobeTimeout; // unchanged tap interval
 var tapStrobeTimeout_changed; // changed tap interval
-const body = document.body;
+const overlay = document.getElementById("overlay"); // strobe overlay
 
 // strobe duration variable definition and event listener
 var duration = 100; // default value
@@ -38,13 +38,11 @@ export function manualStrobe() {
         manualBPM_interval = (60 / lastManualBPMValue) * 1000;
         manualStrobeTimeout = setInterval(() => {
             // trigger strobe
-            body.classList.remove("bg-black");
-            body.classList.add("bg-white");
+            overlay.style.visibility = "visible";
 
             // kill strobe once the strobe duration expires
             setTimeout(() => {
-                body.classList.remove("bg-white");
-                body.classList.add("bg-black");
+                overlay.style.visibility = "hidden";
             }, duration);
             
             ranTimes++;
@@ -83,13 +81,11 @@ export function manualStrobe() {
                 manualBPM_interval = (60 / lastManualBPMValue) * 1000;
                 manualStrobeTimeout_changed = setInterval(() => {
                 // trigger strobe
-                body.classList.remove("bg-black");
-                body.classList.add("bg-white");
-    
+                overlay.style.visibility = "visible";
+
                 // kill strobe once the strobe duration expires
                 setTimeout(() => {
-                    body.classList.remove("bg-white");
-                    body.classList.add("bg-black");
+                    overlay.style.visibility = "hidden";
                 }, duration);
                 
                 ranTimes++;
@@ -115,13 +111,11 @@ export function handleTapBPM() {
         tapBPM_interval = (60 / lastTapBPMValue) * 1000;
         tapStrobeTimeout_changed = setInterval(() => {
             // trigger strobe
-            body.classList.remove("bg-black");
-            body.classList.add("bg-white");
+            overlay.style.visibility = "visible";
 
             // kill strobe once the strobe duration expires
             setTimeout(() => {
-                body.classList.remove("bg-white");
-                body.classList.add("bg-black");
+                overlay.style.visibility = "hidden";
             }, duration);
             
             ranTimes++;

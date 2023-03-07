@@ -1,5 +1,5 @@
 // node imports (Web Audio API)
-import { audioContext, source } from "./autoModeStrobes.js";
+import { audioContext, TrackSource, analyser } from "./autoModeStrobes.js";
 
 document.getElementById("auto").addEventListener("click", () => {
     // show auto mode
@@ -25,65 +25,45 @@ document.getElementById("auto").addEventListener("click", () => {
 });
 
 /* ----- SOUND COME THROUGH Check ----- */
-// internal player reference
 const player = document.getElementById("internal-player");
-// checkbox reference
 const checkbox = document.getElementById("SCT-check");
 
-// create a new analyser node, set fftSize and connect it to AudioContext destination
-const analyser1 = audioContext.createAnalyser();
-analyser1.fftSize = 2048;
-source.connect(analyser1);
-
 // create a new Float32Array to store the frequency data
-const frequencyData = new Float32Array(analyser1.frequencyBinCount);
+const frequencyData = new Float32Array(analyser.frequencyBinCount);
 
 // function to check if audio is playing
 function checkAudioPlaying() {
     // get the frequency data from the analyser node
-    analyser1.getFloatFrequencyData(frequencyData);
+    analyser.getFloatFrequencyData(frequencyData);
 
-    // loop through the frequency data and check if any values are greater than -50 dB
+    // loop through the frequency data and check if any values are greater than -60 dB
     for (let i = 0; i < frequencyData.length; i++) {
-        if (frequencyData[i] > -50) {
-        // audio is playing, do something here
+        if (frequencyData[i] > -60) {
+        // audio is playing, check the checkbox
         checkbox.checked = true;
-
+        
         return;
         }
     }
 
-    // audio is not playing, do something here
+    // audio is not playing, uncheck the checkbox
     checkbox.checked = false;
 }
 
 // function to start checking if audio is playing
-function startCheckingAudioPlaying() {
-    // create a new AudioBufferSourceNode and connect it to the analyser node
-    const bufferSourceNode = audioContext.createBufferSource();
-    bufferSourceNode.buffer = audioContext.createBuffer(1, 1, 22050);
-    bufferSourceNode.connect(analyser1);
+export function startCheckingAudioPlaying() {
+    // create a new AudioBufferTrackSourceNode and connect it to the analyser node
+    const bufferTrackSourceNode = audioContext.createBufferSource();
+    bufferTrackSourceNode.buffer = audioContext.createBuffer(1, 1, 22050);
+    bufferTrackSourceNode.connect(analyser);
 
-    // start the AudioBufferSourceNode and call checkAudioPlaying() every 50 ms
-    bufferSourceNode.start();
+    // start the AudioBufferTrackSourceNode and call checkAudioPlaying() every 50 ms
+    bufferTrackSourceNode.start();
     setInterval(checkAudioPlaying, 50);
 }
 
 // call startCheckingAudioPlaying() when the audio element is ready to play
 player.addEventListener('canplay', startCheckingAudioPlaying);
-
-// event listeners for internal player controls
-player.addEventListener('play', () => {
-    checkbox.checked = true;
-    player.play();
-});
-player.addEventListener('pause', () => {
-    checkbox.checked = false;
-    player.pause();
-});
-player.addEventListener('ended', () => {
-    checkbox.checked = false;
-});
 
 /* ----- Audio Meter (Web Audio Peak Meters) ----- */
 var webAudioPeakMeter = require("web-audio-peak-meter");
@@ -91,7 +71,7 @@ var webAudioPeakMeter = require("web-audio-peak-meter");
 const meterToggle = document.getElementById("meter-ON-OFF");
 const audioMeter = document.getElementById("audio-meter");
 
-var meterNode = webAudioPeakMeter.createMeterNode(source, audioContext);
+const meterNode = webAudioPeakMeter.createMeterNode(TrackSource, audioContext);
 webAudioPeakMeter.createMeter(audioMeter, meterNode, {});
 
 meterToggle.addEventListener("change", () => { // toggle visibility

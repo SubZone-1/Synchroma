@@ -24,6 +24,7 @@ module.exports = {
       },
       scale: {
         "1125": "1.125",
+        "1100": "1.100",
         "1050": "1.050",
       },
       transitionProperty: {

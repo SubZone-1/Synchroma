@@ -20,9 +20,9 @@ document.getElementById("show-hide-a").addEventListener("click", () => {
 // execute function on page load and window resize
 window.onresize = window.onload = () => {
     if (selectedMode = "auto") { // when auto strobe sync mode is selected
-        if (playerHidden == false && window.innerHeight <= 1120) { // if internal player is being shown and viewport height is lower or equals 1120px
+        if (playerHidden == false && window.innerHeight <= 1150) { // if internal player is being shown and viewport height is lower or equals 1150px
             document.getElementById("AM-bottom-position-container").classList.remove("absolute");
-        } else if (playerHidden == true && window.innerHeight <= 860) { // if internal player is hidden and viewport height is lower or equals 860px
+        } else if (playerHidden == true && window.innerHeight <= 1010) { // if internal player is hidden and viewport height is lower or equals 1010px
             document.getElementById("AM-bottom-position-container").classList.remove("absolute");
         } else {
             document.getElementById("AM-bottom-position-container").classList.add("absolute"); // in order to ignore DOM and stick element to the bottom of the sidebar
@@ -30,9 +30,9 @@ window.onresize = window.onload = () => {
     }
 
     if (selectedMode = "manual") { // when manual strobe sync mode is selected
-        if (playerHidden == false && window.innerHeight <= 835) { // when internal player is being shown and viewport height is lower or equals 835px
+        if (playerHidden == false && window.innerHeight <= 930) { // when internal player is being shown and viewport height is lower or equals 930px
             document.getElementById("MM-bottom-position-container").classList.remove("absolute");
-        } else if (playerHidden == true && window.innerHeight <= 705) { // when internal player is hidden and viewport height is lower or equals 705px
+        } else if (playerHidden == true && window.innerHeight <= 790) { // when internal player is hidden and viewport height is lower or equals 790px
             document.getElementById("MM-bottom-position-container").classList.remove("absolute");
         } else {
             document.getElementById("MM-bottom-position-container").classList.add("absolute"); // in order to ignore DOM and stick element to the bottom of the sidebar

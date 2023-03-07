@@ -26,8 +26,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="bg-black min-h-screen overflow-hidden">
+    <div id="overlay" class="w-full h-full absolute bg-white" style="visibility: hidden;"></div> <!-- strobe overlay -->
+
     <div id="sidebar" class="transition-all ease-in-out duration-300">
-        <div id="sidebar-container" class="py-1.5 w-400px h-full bg-gradient-to-br from-[#c7cfd6] to-[#eef2f3] absolute flex flex-col overflow-x-hidden transition-all duration-300">
+        <div id="sidebar-container" class="py-1.5 w-400px h-full bg-gradient-to-br from-[#c7cfd6] via-[#b3afaf] to-[#888888] absolute flex flex-col overflow-x-hidden transition-all duration-300">
             <div class="w-[300px] ml-[20px] sm:mx-auto">
                 <img id="sidebar-logo">
             </div>
@@ -38,12 +40,12 @@
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
-            <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">INTERNAL PLAYER <a id="show-hide-a" class="text-gray-600 font-thin cursor-pointer hover:text-themeOrange">(HIDE)</a></h3>
+            <h3 class="text-center py-3 text-xl text-themeBlack font-semibold">INTERNAL PLAYER <a id="show-hide-a" class="text-themeBlack font-thin cursor-pointer hover:text-themeOrange">(HIDE)</a></h3>
 
             <div id="internal-player-container" class="w-[330px] ml-35px mt--3 mb-3">
                 <div class="w-full">
                     <p class="float-left">Play/Pause on ON/OFF</p>
-                    <input id="play-pause-check" type="checkbox" class="float-right" checked>
+                    <input id="play-pause-check" type="checkbox" class="float-right rounded checked:bg-themeOrange hover:cursor-pointer shadow-lg" checked>
                 </div>
 
                 <input type="file" id="player-file" class="mb-3 mt-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 shadow-lg" accept="audio/*">
@@ -61,11 +63,22 @@
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
-            <h3 class="text-center py-3 text-xl text-gray-600 font-semibold">STROBE SYNC MODE</h3>
+            <h3 class="text-center py-3 text-xl text-themeBlack font-semibold">STROBE SYNC MODE</h3>
 
             <div id="auto-manual-container" class="w-[330px] ml-35px flex flex-row justify-between">
                 <button id="auto" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all shadow-lg" disabled>AUTO</button>
                 <button id="manual" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all shadow-lg">MANUAL</button>
+            </div>
+
+            <h5 id="strobe-color-label" class="text-center mt-1 mb-1 font-semibold text-sm text-themeBlack">STROBE COLOR</h5>
+
+            <div id="strobe-color-container" class="w-[330px] ml-35px flex justify-around">
+                <button id="white" class="w-[50px] h-5 mb-4 bg-white rounded font-bold text-sm text-gray-700 border-2 border-themeOrange hover:scale-1100 transition-all shadow-lg"></button>
+                <button id="red" class="w-[50px] h-5 mb-4 bg-red-700 rounded font-bold text-sm text-gray-700 hover:scale-1100 transition-all shadow-lg"></button>
+                <button id="green" class="w-[50px] h-5 mb-4 bg-green-500 rounded font-bold text-sm text-gray-700 hover:scale-1100 transition-all shadow-lg"></button>
+                <button id="blue" class="w-[50px] h-5 mb-4 bg-blue-600 rounded font-bold text-sm text-gray-700 hover:scale-1100 transition-all shadow-lg"></button>
+                <button id="purple" class="w-[50px] h-5 mb-4 bg-purple-700 rounded font-bold text-sm text-gray-700 hover:scale-1100 transition-all shadow-lg"></button>
+                <button id="yellow" class="w-[50px] h-5 mb-4 bg-yellow-300 rounded font-bold text-sm text-gray-700 hover:scale-1100 transition-all shadow-lg"></button>
             </div>
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
@@ -73,7 +86,7 @@
             <div id="auto-mode-container" class=""> <!-- "AM" stands for "Auto Mode" -->
                 <div id="AM-top-position-container" class="">
                     <div id="input-device-container" class="w-[330px] ml-35px">
-                        <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">INPUT DEVICE</h5>
+                        <h5 class="mt-3 mb-1 font-semibold text-sm text-themeBlack">INPUT DEVICE</h5>
     
                         <select id="select-input-device" class="w-full h-10 mb-5 flex mx-auto bg-white rounded outline-none border-none font-semibold text-center text-gray-700 shadow-lg" required>
                             <option value="" selected disabled hidden>SELECT DEVICE</option>
@@ -85,7 +98,7 @@
                     </div>
     
                     <div id="frequency-range-focus-container" class="w-[330px] ml-35px">
-                        <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">FREQUENCY RANGE FOCUS</h5>
+                        <h5 class="mt-3 mb-1 font-semibold text-sm text-themeBlack">FREQUENCY RANGE FOCUS</h5>
 
                         <div id="low-mid-high-container" class="w-full flex justify-between">
                             <button id="low" class="w-[100px] h-6 mb-4 pt-[2px] bg-white rounded font-bold text-base text-gray-700 hover:scale-1125 transition-all shadow-lg">LOW</button>
@@ -96,24 +109,24 @@
                     </div>
     
                     <div id="detection-sensitivity-container" class="w-[330px] ml-35px">
-                        <h5 id="sens-label" class="mt-3 mb-1 font-semibold text-sm text-gray-500"></h5>
+                        <h5 id="sens-label" class="mt-3 mb-1 font-semibold text-sm text-themeBlack"></h5>
     
                         <div id="threshold-slider-container" class="w-full">
                             <input type="range" min="0" max="100" value="30" class="threshold-slider w-full" id="threshold-slider">
-                            <p class="float-left font-regular text-sm text-gray-600">0</p>
-                            <p class="float-right font-regular text-sm text-gray-600">100</p>
+                            <p class="float-left font-regular text-sm text-themeBlack">0</p>
+                            <p class="float-right font-regular text-sm text-themeBlack">100</p>
                         </div>
                     </div>
     
                     <br>
     
                     <div id="AM-strobe-duration-container" class="w-[330px] ml-35px">
-                        <h5 id="AM-duration-label" class="mt-3 mb-1 font-semibold text-sm text-gray-500"></h5>
+                        <h5 id="AM-duration-label" class="mt-3 mb-1 font-semibold text-sm text-themeBlack"></h5>
     
                         <div id="duration-slider-container" class="duration-slider-container">
                             <input type="range" min="10" max="200" value="100" step="5" class="duration-slider w-full" id="AM-duration-slider">
-                            <p class="float-left font-regular text-sm text-gray-600">10</p>
-                            <p class="float-right font-regular text-sm text-gray-600">200</p>
+                            <p class="float-left font-regular text-sm text-themeBlack">10</p>
+                            <p class="float-right font-regular text-sm text-themeBlack">200</p>
                         </div>
                     </div>
     
@@ -122,22 +135,21 @@
 
                 <div id="AM-bottom-position-container" class="absolute bottom-0">
                     <div id="sound-detection-details-container" class="w-[330px] ml-35px">
-                        <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">SOUND DETECTION DETAILS</h5>
+                        <h5 class="mt-3 mb-1 font-semibold text-sm text-themeBlack">SOUND DETECTION DETAILS</h5>
     
                         <div id="SDD-card" class="w-full h-40 px-4 bg-white rounded flex flex-col justify-evenly shadow-lg">
                             <div id="SCT-container" class="w-full">
-                                <h4 class="float-left font-semibold text-base text-gray-600">SOUND COME THROUGH</h4>
+                                <h4 class="float-left font-semibold text-base text-themeBlack">SOUND COME THROUGH</h4>
                                 <label id="SCT-check-container" class="float-right">
-                                    <input type="checkbox" id="SCT-check" disabled>
-                                    <span class="SCT-checkmark"></span>
+                                    <input type="checkbox" id="SCT-check" class="rounded checked:bg-green-500 shadow-lg" disabled>
                                 </label>
                             </div>
     
                             <hr>
                             
                             <div id="tempo-container" class="w-full">
-                                <h4 class="float-left font-semibold text-base text-gray-600">TEMPO:</h4>
-                                <h4 id="bpm" class="float-right font-semibold text-base text-gray-600"><span>---</span> BPM</h4>
+                                <h4 class="float-left font-semibold text-base text-themeBlack">TEMPO:</h4>
+                                <h4 id="bpm" class="float-right font-semibold text-base text-themeBlack"><span>---</span> BPM</h4>
                                 <br>
                                 <h4 id="BPM-multipliers-label" class="mt-1 float-left font-semibold text-base text-gray-500" hidden>SPEED:</h4>
                                 <div id="BPM-multipliers" class="float-right" hidden>
@@ -149,7 +161,7 @@
                             <hr>
                             
                             <div id="audio-meter-container" class="w-full">
-                                <h4 class="float-left font-semibold text-base text-gray-600">AUDIO METER</h4>
+                                <h4 class="float-left font-semibold text-base text-themeBlack">AUDIO METER</h4>
                                 <label id="meter-toggle" class="relative inline-flex items-center cursor-pointer float-right">
                                     <input id="meter-ON-OFF" type="checkbox" value="" class="sr-only peer">
                                     <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-themeOrange shadow-lg"></div>
@@ -170,32 +182,32 @@
             <div id="manual-mode-container" class="" hidden> <!-- "MM" stands for "Manual Mode" -->
                 <div id="MM-top-position-container" class="">
                     <div id="tempo-container" class="w-[330px] ml-35px">
-                        <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">BPM VALUE</h5>
+                        <h5 class="mt-3 mb-1 font-semibold text-sm text-themeBlack">BPM VALUE</h5>
 
                         <div id="bpm-value-card" class="w-full h-auto p-4 bg-white rounded flex flex-col justify-center items-center shadow-lg">
                             <div id="bpm-value-container" class="flex">
-                                <h4 class="mt-3 mr-10 float-left font-semibold text-sm text-gray-600">INSERT MANUALLY</h4>
+                                <h4 class="mt-3 mr-10 float-left font-semibold text-sm text-themeBlack">INSERT MANUALLY</h4>
                                 <input type="number" id="manual-value" class="w-[65px] h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm text-center rounded-l-lg block p-2.5" placeholder="---" min="0">
-                                <span class="h-10 inline-flex items-center px-3 text-sm text-gray-600 font-semibold bg-gray-200 border border-l-0 border-gray-300 rounded-r-md">
+                                <span class="h-10 inline-flex items-center px-3 text-sm text-themeBlack font-semibold bg-gray-200 border border-l-0 border-gray-300 rounded-r-md">
                                     BPM
                                 </span>
                             </div>
                         </div>
                         
-                        <h5 class="mt-3 mb-1 font-semibold text-sm text-gray-500">TEMPO TAP</h5>
+                        <h5 class="mt-3 mb-1 font-semibold text-sm text-themeBlack">TEMPO TAP</h5>
 
                         <div id="tempo-card" class="w-full h-auto p-4 bg-white rounded flex flex-row justify-evenly items-center shadow-lg">
                             <div id="tempo-details-container" class="w-full">
-                                <h4 class="float-left font-semibold text-sm text-gray-600">AVERAGE BPM:</h4>
-                                <h4 id="avg-value" class="mr-[15px] float-right font-semibold text-sm text-gray-600">--- BPM</h4>
+                                <h4 class="float-left font-semibold text-sm text-themeBlack">AVERAGE BPM:</h4>
+                                <h4 id="avg-value" class="mr-[15px] float-right font-semibold text-sm text-themeBlack">--- BPM</h4>
                                 
-                                <h4 class="float-left font-semibold text-sm text-gray-600">ROUNDED VALUE:</h4>
-                                <h4 id="rounded-value" class="mr-[15px] float-right font-semibold text-sm text-gray-600">--- BPM</h4> 
+                                <h4 class="float-left font-semibold text-sm text-themeBlack">ROUNDED VALUE:</h4>
+                                <h4 id="rounded-value" class="mr-[15px] float-right font-semibold text-sm text-themeBlack">--- BPM</h4> 
 
                                 <!-- hidden input to store tapBPM value for event listener readability -->
                                 <input type="number" id="tap-bpm" class="tap-bpm" hidden>
 
-                                <h4 id="reset-tapbpm-h" class="float-left w-full text-sm font-thin cursor-pointer text-gray-500 hover:text-themeOrange"><a id="reset-tapbpm-a">(RESET)</a></h4>
+                                <h4 id="reset-tapbpm-h" class="float-left w-full text-sm font-thin cursor-pointer text-themeBlack hover:text-themeOrange"><a id="reset-tapbpm-a">(RESET)</a></h4>
                             </div>
 
                             <div id="tempo-tapper-container">
@@ -207,14 +219,14 @@
                             <button id="useManual-btn" class="w-[160px] h-8 mb-4 bg-white rounded font-bold text-sm text-themeOrange transition-all shadow-lg" disabled>USE MANUAL VALUE</button>
                             <button id="useTap-btn" class="w-[160px] h-8 mb-4 bg-white rounded font-bold text-sm text-gray-700 hover:scale-1050 transition-all shadow-lg">USE TAP VALUE</button>
                         </div>
-
+                        
                         <div id="MM-strobe-duration-container" class="w-full">
-                            <h5 id="MM-duration-label" class="mt-1 mb-1 font-semibold text-sm text-gray-500"></h5>
+                            <h5 id="MM-duration-label" class="mt-1 mb-1 font-semibold text-sm text-themeBlack"></h5>
     
                             <div id="MM-duration-slider-container" class="">
                                 <input type="range" min="10" max="200" step="5" value="100" class="w-full" id="MM-duration-slider">
-                                <p class="float-left font-regular text-sm text-gray-600">10</p>
-                                <p class="float-right font-regular text-sm text-gray-600">200</p>
+                                <p class="float-left font-regular text-sm text-themeBlack">10</p>
+                                <p class="float-right font-regular text-sm text-themeBlack">200</p>
                             </div>
                         </div>
 
@@ -231,9 +243,10 @@
             </div>
         </div>
     </div>
+
     <div id="main" class="ml-400px p-5 max-h-screen transition-all duration-300">
         <img src="" id="main-logo" class="w-[200px] sm:w-[300px] right-0 opacity-40 hover:opacity-100 absolute" hidden>
-
+        
         <div id="audio-meter" class="w-[100px] h-[300px] md:h-[500px] fixed bottom-0" style="visibility: hidden;"></div>
     </div>
 </body>

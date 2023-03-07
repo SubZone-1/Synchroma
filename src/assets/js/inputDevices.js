@@ -21,9 +21,25 @@ navigator.mediaDevices.getUserMedia({ audio: true })
         });
 })
 .catch(error => {
-    window.alert('Failed to enumerate audio input devices', error);
+    toastr["error"]("Failed to enumerate audio input devices.", "Device error")
+    
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    console.log(error);
 });
-
-
-
-

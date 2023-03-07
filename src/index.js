@@ -3,8 +3,8 @@ import "./assets/css/styles.css";
 import "./assets/css/extra.css";
 
 /* ---------- JS scripts ---------- */
-require("./assets/js/autoMode"); // TODO: find a way to disable the ON button until the BPM has finished calculating
-require("./assets/js/autoModeStrobes"); // TODO: fine-tune detection threshold and filters (detection method?)
+require("./assets/js/autoMode"); // TODO: change source on peak meter to selected input device source
+require("./assets/js/autoModeStrobes"); // TODO: fine-tune detection threshold and filters (detection method?) // TODO: process microphone audio
 require("./assets/js/BeatDetect");
 require("./assets/js/durationSlider");
 require("./assets/js/frequencyRangeFocus");
@@ -17,6 +17,7 @@ require("./assets/js/offBtn");
 require("./assets/js/onBtn");
 require("./assets/js/opencloseSidebar");
 require("./assets/js/sidebarScroll");
+require("./assets/js/strobeColors");
 require("./assets/js/tempoTap"); // TODO: find a way to pause strobe while tap count is 1-2
 require("./assets/js/thresholdSlider");
 

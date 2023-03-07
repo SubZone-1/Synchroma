@@ -45,6 +45,8 @@ playerFile.addEventListener("change", () => {
     if (!trackBPM) { // show BPM loader while trackBPM is undefined
         document.getElementById("loader-container").removeAttribute("hidden");
         document.getElementById("loader-label").removeAttribute("hidden");
+
+        document.getElementById("AM-on").setAttribute("disabled", true);
     }
 
     beatDetect.getBeatInfo({
@@ -61,6 +63,7 @@ playerFile.addEventListener("change", () => {
 
         document.getElementById("loader-container").setAttribute("hidden", true);
         document.getElementById("loader-label").setAttribute("hidden", true);
+        document.getElementById("AM-on").removeAttribute("disabled");
 
         document.getElementById("BPM-multipliers-label").removeAttribute("hidden");
         document.getElementById("BPM-multipliers").removeAttribute("hidden");
