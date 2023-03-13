@@ -2,7 +2,7 @@
 import { createRealTimeBpmProcessor } from "realtime-bpm-analyzer";
 
 // function imports
-import { webAudioPeakMeter, meterNode, startCheckingAudioPlaying } from "./autoMode.js";
+import { startCheckingAudioPlaying, awaitMicSource } from "./autoMode.js";
 
 const trackBPM_text = document.getElementById("track-bpm"); // track strobe interval value element (hidden input)
 const micBPM_text = document.getElementById("mic-bpm"); // mic strobe interval value element (hidden input)
@@ -115,8 +115,6 @@ inputDevice.addEventListener("change", () => {
             document.getElementById("show-hide-a").click(); // show internal player (simulated click)
         }
     } else {
-        TrackSource.disconnect(); // disconnect TrackSource from all nodes
-
         document.getElementById("internal-player").pause(); // pause internal player
         if (playerHidden == false) { // if player is visible
             document.getElementById("show-hide-a").click(); // hide internal player (simulated click)
@@ -168,10 +166,11 @@ inputDevice.addEventListener("change", () => {
             // create a source node
             const MicSource = audioContext.createMediaStreamSource(stream);
 
-            /** 
-            * ! update audio meter source (NF)
-            webAudioPeakMeter.updateMeterNodeSource(meterNode, MicSource);
-            */
+            // MicSource is defined, create meter
+            const webAudioPeakMeter = require("web-audio-peak-meter");
+            const MicAudioMeter = document.getElementById('mic-audio-meter')
+            const MicMeterNode = webAudioPeakMeter.createMeterNode(MicSource, audioContext);
+            webAudioPeakMeter.createMeter(MicAudioMeter, MicMeterNode, {});
 
             // create a filter
             const filter = audioContext.createBiquadFilter();

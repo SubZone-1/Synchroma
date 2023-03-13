@@ -2,7 +2,7 @@
 import { MM_turnOff_aux } from "./offBtn.js";
 
 // node imports (Web Audio API)
-import { audioContext, TrackSource, analyser } from "./autoModeStrobes.js";
+import { audioContext, TrackSource, MicSource, analyser } from "./autoModeStrobes.js";
 
 document.getElementById("auto").addEventListener("click", () => {
     // show auto mode
@@ -74,17 +74,34 @@ player.addEventListener('canplay', startCheckingAudioPlaying);
 const webAudioPeakMeter = require("web-audio-peak-meter");
 
 const meterToggle = document.getElementById("meter-ON-OFF");
-const audioMeter = document.getElementById("audio-meter");
+const inputDevice = document.getElementById("select-input-device");
+const TrackAudioMeter = document.getElementById("track-audio-meter");
+const MicAudioMeter = document.getElementById('mic-audio-meter')
 
-const meterNode = webAudioPeakMeter.createMeterNode(TrackSource, audioContext);
-webAudioPeakMeter.createMeter(audioMeter, meterNode, {});
+const TrackMeterNode = webAudioPeakMeter.createMeterNode(TrackSource, audioContext);
+webAudioPeakMeter.createMeter(TrackAudioMeter, TrackMeterNode, {});
 
 meterToggle.addEventListener("change", () => { // toggle visibility
-    if (audioMeter.style.visibility === "hidden") {
-        audioMeter.style.visibility = "visible";
+    if (inputDevice.selectedIndex == "1") { // if internal player is selected as input device
+        if (TrackAudioMeter.style.visibility === "hidden") {
+            TrackAudioMeter.style.visibility = "visible";
+        } else {
+            TrackAudioMeter.style.visibility = "hidden";
+        }
     } else {
-        audioMeter.style.visibility = "hidden";
-    }
+        if (MicAudioMeter.style.visibility === "hidden") {
+            MicAudioMeter.style.visibility = "visible";
+        } else {
+            MicAudioMeter.style.visibility = "hidden";
+        }
+    }    
 });
 
-export { webAudioPeakMeter, meterNode };
+inputDevice.addEventListener("change", () => {
+    if (document.getElementById("meter-ON-OFF").checked) {
+        document.getElementById("meter-ON-OFF").checked = false; // uncheck toggle
+
+        TrackAudioMeter.style.visibility = "hidden";
+        MicAudioMeter.style.visibility = "hidden";
+    }
+});

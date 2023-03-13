@@ -3,8 +3,7 @@ import "./assets/css/styles.css";
 import "./assets/css/extra.css";
 
 /* ---------- JS scripts ---------- */
-require("./assets/js/autoMode"); 
-// TODO: change source on audio meter to selected input device source 
+require("./assets/js/autoMode");
 require("./assets/js/autoModeStrobes"); 
 // TODO: fine-tune track detection threshold and filters (detection method?)
     //* TODO: set up filters (selected range) on mic audio stream (might be completed, needs testing)
