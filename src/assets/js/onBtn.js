@@ -3,7 +3,7 @@
 import { file, trackBPM } from "./internalPlayer.js";
 
 //function imports
-import { trackStrobe } from "./autoModeStrobes.js";
+import { trackStrobe, micStrobe } from "./autoModeStrobes.js";
 
 /* ---------- manual mode imports ---------- */
 // variable imports
@@ -16,6 +16,9 @@ import { manualStrobe, tapStrobe } from "./manualModeStrobes.js";
 
 let strobeActive = false;
 
+const AM_onBtn = document.getElementById("AM-on");
+const AM_offBtn = document.getElementById("AM-off");
+
 /* ----- Auto mode ON button ----- */
 document.getElementById("AM-on").addEventListener("click", () => {
     if (document.getElementById('select-input-device').selectedIndex == "0") { // no device selected
@@ -25,7 +28,7 @@ document.getElementById("AM-on").addEventListener("click", () => {
             "closeButton": true,
             "debug": false,
             "newestOnTop": false,
-            "progressBar": false,
+            "progressBar": true,
             "positionClass": "toast-top-right",
             "preventDuplicates": false,
             "onclick": null,
@@ -46,7 +49,7 @@ document.getElementById("AM-on").addEventListener("click", () => {
                 "closeButton": true,
                 "debug": false,
                 "newestOnTop": false,
-                "progressBar": false,
+                "progressBar": true,
                 "positionClass": "toast-top-right",
                 "preventDuplicates": false,
                 "onclick": null,
@@ -66,7 +69,7 @@ document.getElementById("AM-on").addEventListener("click", () => {
                 "closeButton": true,
                 "debug": false,
                 "newestOnTop": false,
-                "progressBar": false,
+                "progressBar": true,
                 "positionClass": "toast-top-right",
                 "preventDuplicates": false,
                 "onclick": null,
@@ -80,9 +83,6 @@ document.getElementById("AM-on").addEventListener("click", () => {
                 "hideMethod": "fadeOut"
             }
         } else {
-            var AM_onBtn = document.getElementById("AM-on");
-            var AM_offBtn = document.getElementById("AM-off");
-    
             // disable on button (selected) and enable off button
             AM_onBtn.setAttribute("disabled", "true");
             AM_offBtn.removeAttribute("disabled");
@@ -102,6 +102,28 @@ document.getElementById("AM-on").addEventListener("click", () => {
                 document.getElementById("internal-player").play(); // start audio playback
             }
         }
+    } else { // mic audio
+        // disable on button (selected) and enable off button
+        AM_onBtn.setAttribute("disabled", "true");
+        AM_offBtn.removeAttribute("disabled");
+
+        // styling
+        AM_onBtn.classList.remove("text-gray-700");
+        AM_onBtn.classList.remove("hover:scale-1125");
+        AM_onBtn.classList.add("text-themeOrange");
+
+        AM_offBtn.classList.add("text-gray-700");
+        AM_offBtn.classList.add("hover:scale-1125");
+        AM_offBtn.classList.remove("text-themeOrange");
+
+        strobeActive = true;
+
+        const checkTempoDetected = setInterval(() => { // to only turn on strobe when a tempo value gets defined
+            if (document.getElementById("mic-bpm").value > 0) {
+                clearInterval(checkTempoDetected);
+                micStrobe(); // activate strobe
+            }
+        }, 100);
     }
 });
 
@@ -118,7 +140,7 @@ document.getElementById("MM-on").addEventListener("click", () => {
             "closeButton": true,
             "debug": false,
             "newestOnTop": false,
-            "progressBar": false,
+            "progressBar": true,
             "positionClass": "toast-top-right",
             "preventDuplicates": false,
             "onclick": null,
@@ -138,7 +160,7 @@ document.getElementById("MM-on").addEventListener("click", () => {
             "closeButton": true,
             "debug": false,
             "newestOnTop": false,
-            "progressBar": false,
+            "progressBar": true,
             "positionClass": "toast-top-right",
             "preventDuplicates": false,
             "onclick": null,
@@ -159,7 +181,7 @@ document.getElementById("MM-on").addEventListener("click", () => {
             "closeButton": true,
             "debug": false,
             "newestOnTop": false,
-            "progressBar": false,
+            "progressBar": true,
             "positionClass": "toast-top-right",
             "preventDuplicates": false,
             "onclick": null,
@@ -205,7 +227,7 @@ document.getElementById("MM-on").addEventListener("click", () => {
             tapStrobe(); // activate strobe (BPM tapper value)
         }
 
-        if (document.getElementById("play-pause-check").checked) {
+        if (document.getElementById("internal-player").src && document.getElementById("play-pause-check").checked && document.getElementById("internal-player").paused) { // if  file is loaded into the player, play/pause is checked and internal player is paused
             document.getElementById("internal-player").play(); // start audio playback
         }
     }

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/SubZone-1/Synchroma#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
@@ -33,6 +34,7 @@
   },
   "dependencies": {
     "flowbite": "^1.6.3",
+    "realtime-bpm-analyzer": "^3.1.2",
     "web-audio-beat-detector": "^8.1.42"
   }
 }

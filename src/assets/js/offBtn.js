@@ -26,6 +26,25 @@ document.getElementById("AM-off").addEventListener("click", () => {
     }
 });
 
+export function AM_turnOff_aux() { // function duplicate for imports
+    var AM_offBtn = document.getElementById("AM-off");
+    var AM_onBtn = document.getElementById("AM-on");
+
+    // disable off button (selected) and enable on button
+    AM_offBtn.setAttribute("disabled", "true");
+    AM_onBtn.removeAttribute("disabled");
+
+    AM_offBtn.classList.remove("text-gray-700");
+    AM_offBtn.classList.remove("hover:scale-1125");
+    AM_offBtn.classList.add("text-themeOrange");
+
+    AM_onBtn.classList.add("text-gray-700");
+    AM_onBtn.classList.add("hover:scale-1125");
+    AM_onBtn.classList.remove("text-themeOrange");
+
+    killAutoModeStrobes();
+}
+
 /* ----- Manual mode OFF button ----- */
 document.getElementById("MM-off").addEventListener("click", () => { // only for HTML call
     var MM_offBtn = document.getElementById("MM-off");
@@ -53,7 +72,7 @@ document.getElementById("MM-off").addEventListener("click", () => { // only for 
 
     killManualModeStrobes();
 
-    if (document.getElementById("play-pause-check").checked) {
+    if (document.getElementById("internal-player").src && document.getElementById("play-pause-check").checked && !document.getElementById("internal-player").paused) { // if a file is loaded into the player, play/pause is checked and player is playing
         document.getElementById("internal-player").pause(); // pause audio playback
     }
 });

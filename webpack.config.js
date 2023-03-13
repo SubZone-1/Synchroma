@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     mode: "development",
@@ -39,6 +40,14 @@ module.exports = {
             title: "Synchroma: Audio-Synced Strobe Lighting",
             filename: "index.html",
             template: "src/template.html",
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: "./node_modules/realtime-bpm-analyzer/dist/realtime-bpm-processor.js",
+                    to: path.resolve(__dirname, 'dist'),
+                }
+            ]
         })
     ]
 }

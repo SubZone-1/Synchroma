@@ -1,37 +1,85 @@
-// function imports
-import { startCheckingAudioPlaying } from "./autoMode.js";
+// realtime-bpm-analyzer library
+import { createRealTimeBpmProcessor } from "realtime-bpm-analyzer";
 
-let selectedFrequencyRange = "master"; // default value
-var trackBPM_interval = 0;
-var trackBPM_text = document.getElementById("track-bpm");
-var inputDevice = document.getElementById("select-input-device");
+// function imports
+import { webAudioPeakMeter, meterNode, startCheckingAudioPlaying } from "./autoMode.js";
+
+const trackBPM_text = document.getElementById("track-bpm"); // track strobe interval value element (hidden input)
+const micBPM_text = document.getElementById("mic-bpm"); // mic strobe interval value element (hidden input)
+const inputDevice = document.getElementById("select-input-device"); // input device select element
+const slider_threshold = document.getElementById("threshold-slider"); // threshold slider element
+const slider = document.getElementById("AM-duration-slider"); // duration slider element
+const overlay = document.getElementById("overlay"); // strobe overlay element
+
+var selectedFrequencyRange = "master"; // default selection
 var inputDevice_text = "Internal Player"; // default option
-var changed = false; // in order to activate the strobe before event the listener gets triggered
-var isActive = false; // in order to check if strobe is on or off
+var trackBPM_interval = 0; // track strobe interval value
+var micBPM_interval = 0; // mic strobe interval value
+var tempo = 0; // mic audio BPM value
+var threshold = 30; // threshold default value
+var duration = 100; // duration default value
+
 var trackStrobeTimeout; // unchanged track interval
 var trackStrobeTimeout_changed; // changed track interval
-const overlay = document.getElementById("overlay"); // strobe overlay
+var micStrobeTimeout; // unchanged mic interval
+var micStrobeTimeout_changed; // changed mic interval
 
+var changed = false; // default value; in order to activate the strobe before event the listener gets triggered
+var isActive = false; // default value; in order to check if strobe is on or off
+var playerHidden = false; // default value; in order to check if internal player is hidden or visible
+
+// input device dropdown event listener (for device listing)
+inputDevice.addEventListener("change", event => {
+    var inputDevice_option = event.target.selectedOptions[0]; // get selected device name (label)
+    inputDevice_text = inputDevice_option.label;
+});
+
+// frequency range focus buttons event listeners
 document.getElementById("low").addEventListener("click", () => {
-    selectedFrequencyRange = "low";
+    selectedFrequencyRange = "low"; // low end frequency focus selected
 });
 document.getElementById("mid").addEventListener("click", () => {
-    selectedFrequencyRange = "mid";
+    selectedFrequencyRange = "mid"; // mid range frequency focus selected
 });
 document.getElementById("high").addEventListener("click", () => {
-    selectedFrequencyRange = "high";
+    selectedFrequencyRange = "high"; // high end frequency focus selected
 });
-document.getElementById("master").addEventListener("click", () => {
-    selectedFrequencyRange = "master";
+document.getElementById("master").addEventListener("click", () => { 
+    selectedFrequencyRange = "master"; // master range frequency focus selected
 });
 
-inputDevice.addEventListener("change", event => { // get selected device name (label)
-    var inputDevice_option = event.target.selectedOptions[0];
-    inputDevice_text = inputDevice_option.label;
+// beat detection threshold event listener
+slider_threshold.addEventListener("input", () => {
+    threshold = slider_threshold.value;
+}, false);
+
+// strobe duration event listener
+slider.addEventListener("input", () => {
+    duration = slider.value;
+}, false);
+
+// ON & OFF buttons event listeners
+document.getElementById("AM-off").addEventListener("click", () => {
+    isActive = false; // strobe is off
+});
+document.getElementById("AM-on").addEventListener("click", () => {
+    isActive = true; // strobe is on
+});
+
+// player visibility event listener
+document.getElementById("show-hide-a").addEventListener("click", () => {
+    if (document.getElementById("show-hide-a").innerHTML == "(HIDE)") {
+        playerHidden = true; // player is hidden
+    } else {
+        playerHidden = false;// player is visible
+    }
 });
 
 // create an AudioContext instance
 const audioContext = new AudioContext();
+
+// create a real-time BPM detection node
+const realtimeAnalyzerNode = await createRealTimeBpmProcessor(audioContext);
 
 // create a filter node (to analyze separate frequency ranges)
 const filter = audioContext.createBiquadFilter();
@@ -43,9 +91,10 @@ analyser.fftSize = 2048;
 // create a source (internal player)
 const TrackSource = audioContext.createMediaElementSource(document.getElementById("internal-player"));
 
-inputDevice.addEventListener("change", () => {
-    startCheckingAudioPlaying();
+// set up the data array
+const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
+inputDevice.addEventListener("change", () => {
     if (inputDevice.selectedIndex == "1") { // if selected device is the integrated player
         // audio processing nodes
         TrackSource.connect(filter);
@@ -53,9 +102,29 @@ inputDevice.addEventListener("change", () => {
 
         // destination (audio that is played)
         TrackSource.connect(audioContext.destination);
+
+        // hide loader
+        document.getElementById("mic-loader-container").setAttribute("hidden", true);
+        document.getElementById("mic-loader-label").setAttribute("hidden", true);
+
+        // show track BPM multipliers
+        document.getElementById("BPM-multipliers-label").removeAttribute("hidden");
+        document.getElementById("BPM-multipliers").removeAttribute("hidden");
+
+        if (playerHidden == true) { // if player is hidden
+            document.getElementById("show-hide-a").click(); // show internal player (simulated click)
+        }
     } else {
         TrackSource.disconnect(); // disconnect TrackSource from all nodes
+
         document.getElementById("internal-player").pause(); // pause internal player
+        if (playerHidden == false) { // if player is visible
+            document.getElementById("show-hide-a").click(); // hide internal player (simulated click)
+        }
+
+        // hide track BPM multipliers
+        document.getElementById("BPM-multipliers-label").setAttribute("hidden", true);
+        document.getElementById("BPM-multipliers").setAttribute("hidden", true);
 
         // get the selected deviceID from select input device element
         const selectedDeviceID = inputDevice.value;
@@ -71,67 +140,83 @@ inputDevice.addEventListener("change", () => {
                 }
             });
 
+            // show loader
+            document.getElementById("mic-loader-container").removeAttribute("hidden");
+            document.getElementById("mic-loader-label").removeAttribute("hidden");
+
+            // detecting bpm notification
+            toastr["info"]("Looking for a beat to process. This might take some time.", "Detecting BPM...")
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
             // create a source node
             const MicSource = audioContext.createMediaStreamSource(stream);
 
-            // create a ScriptProcessorNode to analyze the audio
-            const scriptNode = audioContext.createScriptProcessor(1024, 1, 1);
+            /** 
+            * ! update audio meter source (NF)
+            webAudioPeakMeter.updateMeterNodeSource(meterNode, MicSource);
+            */
 
-            // audio processing nodes
-            MicSource.connect(filter);
-            filter.connect(scriptNode);
-            scriptNode.connect(analyser);
+            // create a filter
+            const filter = audioContext.createBiquadFilter();
+            
+            // change filter type according to selected frequency range
+            // NOTE: filtered audio (filter node) is only read by the realtime analyzer, only the unchanged audio (micSource node) comes trough the speakers (destination)
+            if (selectedFrequencyRange == "low") { // lowpass
+                filter.type = "lowpass";
+            } else if (selectedFrequencyRange == "mid") { // bandpass
+                filter.type = "bandpass";
+            } else if (selectedFrequencyRange == "high") { // highpass
+                filter.type = "highpass";
+            } else { // no filter, all frequencies pass through
+                filter.type = "allpass";
+            }
 
-            // destination (audio that is played)
-            MicSource.connect(audioContext.destination);
+            // connect stuff together
+            MicSource.connect(filter).connect(realtimeAnalyzerNode);
+            MicSource.connect(filter).connect(analyser); // analyser connection for SCT check readability
+            // MicSource.connect(audioContext.destination); //* Uncomment to monitor mic audio
 
-            // initialize the beat detection variables
-            let lastPeak = 0;
-            let threshold = 0.2;
-            let decay = 0.98;
+            startCheckingAudioPlaying(); // SCT check for mic audio stream
 
-            // define the function that will be called each time the scriptNode processes audio
-            scriptNode.onaudioprocess = function(audioProcessingEvent) {
-                // get the input buffer
-                const inputBuffer = audioProcessingEvent.inputBuffer;
-
-                // get the left channel data from the input buffer
-                const inputData = inputBuffer.getChannelData(0);
-
-                // initialize the variables for peak detection
-                let currentPeak = 0;
-                let currentValley = 0;
-                let isRising = true;
-
-                // iterate over the input data
-                for (let i = 0; i < inputData.length; i++) {
-                    // get the absolute value of the sample
-                    const absVal = Math.abs(inputData[i]);
-
-                    if (absVal > currentPeak) {
-                        currentPeak = absVal;
-                    } else if (absVal < currentValley) {
-                        currentValley = absVal;
-                    } else if (isRising && absVal < currentPeak * threshold) {
-                        // a peak has been detected
-                        const timeSinceLastPeak = audioContext.currentTime - lastPeak;
-
-                        if (timeSinceLastPeak > 0.1) {
-                            console.log('beat detected at time', audioContext.currentTime);
-
-                            // update the last peak time and the threshold
-                            lastPeak = audioContext.currentTime;
-                            threshold = currentPeak * decay;
-                        }
-
-                        isRising = false;
-                    } else if (!isRising && absVal > currentValley * threshold) {
-                        isRising = true;
-                    }
-
-                    // decay the threshold over time
-                    threshold *= decay;
+            realtimeAnalyzerNode.port.onmessage = (event) => {
+                /*if (event.data.message === 'BPM') {
+                    console.log('BPM', event.data.result.bpm[0].tempo);
                 }
+                if (event.data.message === 'BPM_STABLE') {
+                    console.log('BPM_STABLE', event.data.result);
+                }*/
+
+                /**
+                * * code commented for dependency interferance while debugging
+                tempo = event.data.result.bpm[0].tempo;
+                
+                if (tempo > 0) {
+                    document.getElementById("bpm").querySelector("span").innerHTML = tempo;
+                    
+                    micBPM_text.value = tempo; // hidden input
+
+                    // hide loader
+                    document.getElementById("mic-loader-container").setAttribute("hidden", true);
+                    document.getElementById("mic-loader-label").setAttribute("hidden", true);
+                }
+                */
             };
         })
         .catch((err) => {
@@ -140,29 +225,49 @@ inputDevice.addEventListener("change", () => {
     }
 });
 
-// set up the data array
-const dataArray = new Uint8Array(analyser.frequencyBinCount);
+export function micStrobe() {
+    let lastMicBPMValue = micBPM_text.value; // default value
+    var ranTimes = 0;
 
-// strobe duration event listener
-var duration = 100; // default value
-const slider = document.getElementById("AM-duration-slider");
-slider.addEventListener("input", () => {
-    duration = slider.value;
-}, false);
+    if (changed == false) {
+        micBPM_interval = (60 / lastMicBPMValue) * 1000;
+        micStrobeTimeout = setInterval(() => {
+            // trigger strobe
+            overlay.style.visibility = "visible";
 
-// beat detection threshold event listener
-var threshold = 30; // default value
-const slider_threshold = document.getElementById("threshold-slider");
-slider_threshold.addEventListener("input", () => {
-    threshold = slider_threshold.value;
-}, false);
+            // kill strobe once the strobe duration expires
+            setTimeout(() => {
+                overlay.style.visibility = "hidden";
+            }, duration);
 
-document.getElementById("AM-off").addEventListener("click", () => {
-    isActive = false;
-});
-document.getElementById("AM-on").addEventListener("click", () => {
-    isActive = true;
-});
+            ranTimes++;
+            console.log("Device: " + inputDevice_text + " | BPM: " + lastMicBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
+        }, micBPM_interval);
+    }
+
+    micBPM_text.addEventListener("input", () => { // TODO: test function with event listener firing using "input" instead of "change"
+        if (isActive == true) { // only runs when auto mode is ON
+            clearInterval(micStrobeTimeout); // kill unchanged strobe
+            changed = true;
+            lastMicBPMValue = micBPM_text.value;
+
+            clearInterval(micStrobeTimeout_changed); // so that old value doesn't interfere with new value
+            micBPM_interval = (60 / lastMicBPMValue) * 1000;
+            micStrobeTimeout_changed = setInterval(() => {
+                // trigger strobe
+                overlay.style.visibility = "visible";
+
+                // kill strobe once the strobe duration expires
+                setTimeout(() => {
+                    overlay.style.visibility = "hidden";
+                }, duration);
+                
+                ranTimes++;
+                console.log("Device: " + inputDevice_text + " | BPM: " + lastMicBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
+            }, micBPM_interval);
+        }
+    });
+}
 
 export function trackStrobe() {
     let lastTrackBPMValue = trackBPM_text.value; // default value
@@ -280,10 +385,13 @@ export function trackStrobe() {
 }
 
 export function killAutoModeStrobes() {
-    clearInterval(trackStrobeTimeout_changed);
     clearInterval(trackStrobeTimeout);
+    clearInterval(trackStrobeTimeout_changed);
+
+    clearInterval(micStrobeTimeout);
+    clearInterval(micStrobeTimeout_changed);
 
     changed = false;
 }
 
-export { audioContext, TrackSource, analyser };
+export { audioContext, TrackSource, analyser, tempo };

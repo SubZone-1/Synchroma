@@ -29,14 +29,14 @@
     <div id="overlay" class="w-full h-full absolute bg-white" style="visibility: hidden;"></div> <!-- strobe overlay -->
 
     <div id="sidebar" class="transition-all ease-in-out duration-300">
-        <div id="sidebar-container" class="py-1.5 w-400px h-full bg-gradient-to-br from-[#c7cfd6] via-[#b3afaf] to-[#888888] absolute flex flex-col overflow-x-hidden transition-all duration-300">
+        <div id="sidebar-container" class="py-1.5 w-400px h-full bg-gradient-to-br from-[#c7cfd6] via-[#b3afaf] to-[#888888] absolute flex flex-col overflow-x-hidden transition-all duration-300 left-[-400px]">
             <div class="w-[300px] ml-[20px] sm:mx-auto">
                 <img id="sidebar-logo">
             </div>
 
-            <button id="opencloseSidebar" class="my-[20px] mx-[20px] h-8 w-8 sm:h-10 sm:w-10 top-[5px] sm:top-0 left-[305px] sm:left-400px bg-white text-xl opacity-50 flex items-center justify-center rounded absolute sm:fixed hover:scale-1125 hover:opacity-100 transition-all"><i class="fa-solid fa-caret-left"></i></button>
+            <button id="opencloseSidebar" class="my-[20px] mx-[20px] h-8 w-8 sm:h-10 sm:w-10 top-[5px] sm:top-0 bg-white text-xl opacity-50 flex items-center justify-center rounded sm:fixed transition-all left-0 fixed blur-sm" disabled><i class="fa-solid fa-caret-right"></i></button>
 
-            <button id="fullscreen-btn" class="my-[20px] mx-[20px] sm:mt-[30px] h-8 w-8 sm:h-10 sm:w-10 top-[40px] left-[305px] sm:left-400px absolute sm:fixed bg-white text-xl opacity-50 flex items-center justify-center rounded hover:scale-1125 hover:opacity-100 transition-all"><i class="fa solid fa-expand"></i></button>
+            <button id="fullscreen-btn" class="my-[20px] mx-[20px] sm:mt-[30px] h-8 w-8 sm:h-10 sm:w-10 top-[40px] sm:fixed bg-white text-xl opacity-50 flex items-center justify-center rounded transition-all left-0 fixed blur-sm" disabled><i class="fa solid fa-expand"></i></button>
 
             <hr class="w-[330px] border border-solid border-zinc-700 opacity-50 mx-auto">
 
@@ -50,7 +50,7 @@
 
                 <input type="file" id="player-file" class="mb-3 mt-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 shadow-lg" accept="audio/*">
 
-                <!-- BPM loader -->
+                <!-- track BPM loader -->
                 <div id="loader-container" class="w-full h-10 pt-2" hidden>
                     <div class="loader"></div>
                 </div>
@@ -95,6 +95,12 @@
 
                         <!-- hidden input to store trackBPM value for global JS readability -->
                         <input type="number" id="track-bpm" hidden>
+
+                        <!-- mic audio BPM loader -->
+                        <div id="mic-loader-container" class="w-full h-10 pt-2" hidden>
+                            <div class="loader"></div>
+                        </div>
+                        <p id="mic-loader-label" class="text-center" hidden>Detecting BPM...</p>
                     </div>
     
                     <div id="frequency-range-focus-container" class="w-[330px] ml-35px">
@@ -150,7 +156,11 @@
                             <div id="tempo-container" class="w-full">
                                 <h4 class="float-left font-semibold text-base text-themeBlack">TEMPO:</h4>
                                 <h4 id="bpm" class="float-right font-semibold text-base text-themeBlack"><span>---</span> BPM</h4>
+                                <!-- hidden input to store mic BPM value for global JS readability -->
+                                <input type="number" id="mic-bpm" hidden>
+
                                 <br>
+
                                 <h4 id="BPM-multipliers-label" class="mt-1 float-left font-semibold text-base text-gray-500" hidden>SPEED:</h4>
                                 <div id="BPM-multipliers" class="float-right" hidden>
                                     <button id="halfspeed" class="w-[40px] h-6 bg-white rounded font-bold text-base text-gray-500 border-2 border-themeOrange hover:scale-1125 transition-all shadow-lg">&#247; 2  </button>
@@ -235,7 +245,7 @@
                 </div>
 
                 <div id="MM-bottom-position-container" class="absolute bottom-0">
-                    <div id="MM-on-off-container" class="w-[330px] ml-35px flex justify-between">
+                    <div id="MM-on-off-container" class="w-[330px] ml-35px mt-[20px] flex justify-between">
                         <button id="MM-off" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-themeOrange transition-all shadow-lg" disabled>OFF</button>
                         <button id="MM-on" class="w-[150px] h-10 mb-4 bg-white rounded font-bold text-xl text-gray-700 hover:scale-1125 transition-all shadow-lg">ON</button>
                     </div>
@@ -244,10 +254,35 @@
         </div>
     </div>
 
-    <div id="main" class="ml-400px p-5 max-h-screen transition-all duration-300">
-        <img src="" id="main-logo" class="w-[200px] sm:w-[300px] right-0 opacity-40 hover:opacity-100 absolute" hidden>
+    <div id="main" class="p-2 sm:p-5 max-h-screen transition-all duration-300 ml-0">
+        <div class="w-full flex">
+            <img src="" id="main-logo" class="w-[200px] sm:w-[300px] mx-auto opacity-40 transition-all blur-sm absolute left-0 right-0">
+        </div>
         
         <div id="audio-meter" class="w-[100px] h-[300px] md:h-[500px] fixed bottom-0" style="visibility: hidden;"></div>
+
+        <div id="modal-container" class="flex h-screen" style="visibility: visible;">
+            <div id="modal" class="h-auto w-[500px] lg:w-[600px] xl:w-[800px] m-auto py-4 px-8 rounded-2xl bg-gradient-to-br from-[#c7cfd6] via-[#b3afaf] to-[#888888] transition-all shadow-lg">
+                <img src="" id="modal-logo" class="mx-auto w-[200px] lg:w-[250px] xl:w-[300px]">
+
+                <br>
+
+                <p><b>WARNING:</b> This app contains strobe light effects that may trigger seizures or other medical conditions in people with photosensitive epilepsy or other related disorders. Viewer discretion is advised. If you or anyone in your family has a history of epilepsy or seizures, or if you experience any unusual symptoms while using this app, immediately discontinue use and consult with a medical professional. Please use this app responsibly and in a safe environment.</p>
+
+                <br>
+
+                <!-- <div class="w-full flex">
+                    <p>Do not show this again </p>  
+                    <input id="show-check" type="checkbox" class="ml-2 mt-1 rounded checked:bg-themeOrange hover:cursor-pointer shadow-lg">
+                </div>
+
+                <br> -->
+
+                <div class="w-full flex">
+                    <button id="close-modal" class="w-[200px] h-10 mx-auto bg-white rounded font-bold text-lg text-themeBlack hover:scale-1125 transition-all shadow-lg" style="visibility: visible;">I UNDERSTAND</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

@@ -1,5 +1,5 @@
 // variable imports
-import { MM_turnOff_aux } from "./offBtn.js";
+import { AM_turnOff_aux, MM_turnOff_aux } from "./offBtn.js";
 
 document.getElementById("manual").addEventListener("click", () => {
     // show manual mode
@@ -13,6 +13,8 @@ document.getElementById("manual").addEventListener("click", () => {
     // disable manual mode button (selected) and enable auto mode button
     manualBtn.setAttribute("disabled", "true");
     autoBtn.removeAttribute("disabled");
+
+    AM_turnOff_aux(); //turn off auto mode strobe
 
     // styling
     manualBtn.classList.remove("text-gray-700");

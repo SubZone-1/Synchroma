@@ -1,3 +1,6 @@
+// variable imports 
+import { MM_turnOff_aux } from "./offBtn.js";
+
 // node imports (Web Audio API)
 import { audioContext, TrackSource, analyser } from "./autoModeStrobes.js";
 
@@ -13,6 +16,8 @@ document.getElementById("auto").addEventListener("click", () => {
     // disable auto mode button (selected) and enable manual mode button
     autoBtn.setAttribute("disabled", "true");
     manualBtn.removeAttribute("disabled");
+
+    MM_turnOff_aux(); // turn off manual mode strobe
 
     // styling
     autoBtn.classList.remove("text-gray-700");
@@ -62,11 +67,11 @@ export function startCheckingAudioPlaying() {
     setInterval(checkAudioPlaying, 50);
 }
 
-// call startCheckingAudioPlaying() when the audio element is ready to play
+// call startCheckingAudioPlaying() when audio element is ready to play
 player.addEventListener('canplay', startCheckingAudioPlaying);
 
 /* ----- Audio Meter (Web Audio Peak Meters) ----- */
-var webAudioPeakMeter = require("web-audio-peak-meter");
+const webAudioPeakMeter = require("web-audio-peak-meter");
 
 const meterToggle = document.getElementById("meter-ON-OFF");
 const audioMeter = document.getElementById("audio-meter");
@@ -81,3 +86,5 @@ meterToggle.addEventListener("change", () => { // toggle visibility
         audioMeter.style.visibility = "hidden";
     }
 });
+
+export { webAudioPeakMeter, meterNode };
