@@ -2,7 +2,7 @@
 import { MM_turnOff_aux } from "./offBtn.js";
 
 // node imports (Web Audio API)
-import { audioContext, TrackSource, MicSource, analyser } from "./autoModeStrobes.js";
+import { audioContext, TrackSource, analyser } from "./autoModeStrobes.js";
 
 document.getElementById("auto").addEventListener("click", () => {
     // show auto mode
@@ -70,7 +70,7 @@ export function startCheckingAudioPlaying() {
 // call startCheckingAudioPlaying() when audio element is ready to play
 player.addEventListener('canplay', startCheckingAudioPlaying);
 
-/* ----- Audio Meter (Web Audio Peak Meters) ----- */
+/* ----- Track Audio Meter (Web Audio Peak Meters) ----- */
 const webAudioPeakMeter = require("web-audio-peak-meter");
 
 const meterToggle = document.getElementById("meter-ON-OFF");

@@ -1267,22 +1267,6 @@ input:checked + .toggle-bg {
   height: 1rem;
 }
 
-.h-\[\[0\]px\] {
-  height: [0]px;
-}
-
-.h-\[80px\] {
-  height: 80px;
-}
-
-.h-\[600px\] {
-  height: 600px;
-}
-
-.h-\[60px\] {
-  height: 60px;
-}
-
 .max-h-screen {
   max-height: 100vh;
 }

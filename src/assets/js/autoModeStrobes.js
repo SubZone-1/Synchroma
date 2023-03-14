@@ -2,7 +2,7 @@
 import { createRealTimeBpmProcessor } from "realtime-bpm-analyzer";
 
 // function imports
-import { startCheckingAudioPlaying, awaitMicSource } from "./autoMode.js";
+import { startCheckingAudioPlaying } from "./autoMode.js";
 
 const trackBPM_text = document.getElementById("track-bpm"); // track strobe interval value element (hidden input)
 const micBPM_text = document.getElementById("mic-bpm"); // mic strobe interval value element (hidden input)
@@ -21,8 +21,7 @@ var duration = 100; // duration default value
 
 var trackStrobeTimeout; // unchanged track interval
 var trackStrobeTimeout_changed; // changed track interval
-var micStrobeTimeout; // unchanged mic interval
-var micStrobeTimeout_changed; // changed mic interval
+var micStrobeTimeout; // mic interval
 
 var changed = false; // default value; in order to activate the strobe before event the listener gets triggered
 var isActive = false; // default value; in order to check if strobe is on or off
@@ -81,8 +80,11 @@ const audioContext = new AudioContext();
 // create a real-time BPM detection node
 const realtimeAnalyzerNode = await createRealTimeBpmProcessor(audioContext);
 
-// create a filter node (to analyze separate frequency ranges)
+// create a filter node for track audio (to analyze separate frequency ranges)
 const filter = audioContext.createBiquadFilter();
+
+// create a filter node for mic audio (to analyze separate frequency ranges)
+const filter_mic = audioContext.createBiquadFilter();
 
 // create an analyser node and set fftSize
 const analyser = audioContext.createAnalyser();
@@ -94,7 +96,13 @@ const TrackSource = audioContext.createMediaElementSource(document.getElementByI
 // set up the data array
 const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-inputDevice.addEventListener("change", () => {
+inputDevice.addEventListener("change", () => { // on selecting a different input device
+    killAutoModeStrobes(); // kill all strobes (intervals)
+    document.getElementById("AM-off").click(); // simulate OFF button click
+    document.getElementById("bpm").querySelector("span").innerHTML = "---"; // reset detected tempo text
+    micBPM_text.value = 0; // reset mic BPM value
+    trackBPM_text.value = 0; // reset track BPM value
+
     if (inputDevice.selectedIndex == "1") { // if selected device is the integrated player
         // audio processing nodes
         TrackSource.connect(filter);
@@ -131,11 +139,9 @@ inputDevice.addEventListener("change", () => {
         const constraints = { audio: { deviceID: selectedDeviceID, echoCancellation: false, googAutoGainControl: false } };
         navigator.mediaDevices.getUserMedia(constraints)
         .then((stream) => {
-            // disconnect MicSource from all nodes if internal player is selected as an input device
+            // disconnect MicSource from all nodes if input device is changed
             inputDevice.addEventListener("change", () => {
-                if (inputDevice.selectedIndex == "1") {
-                    MicSource.disconnect();
-                }
+                MicSource.disconnect();
             });
 
             // show loader
@@ -166,31 +172,31 @@ inputDevice.addEventListener("change", () => {
             // create a source node
             const MicSource = audioContext.createMediaStreamSource(stream);
 
-            // MicSource is defined, create meter
+            // MicSource is defined, create meter (Web Audio Peak Meters)
             const webAudioPeakMeter = require("web-audio-peak-meter");
             const MicAudioMeter = document.getElementById('mic-audio-meter')
             const MicMeterNode = webAudioPeakMeter.createMeterNode(MicSource, audioContext);
             webAudioPeakMeter.createMeter(MicAudioMeter, MicMeterNode, {});
 
-            // create a filter
-            const filter = audioContext.createBiquadFilter();
+            const checkFrequencyRange = setInterval(() => {
+                // change filter type according to selected frequency range
+                // NOTE: filtered audio (filter node) is only read by the realtime analyzer, only the unchanged audio (micSource node) comes trough the speakers (destination)
+                if (selectedFrequencyRange == "low") { // lowpass
+                    filter_mic.type = "lowpass";
+                } else if (selectedFrequencyRange == "mid") { // bandpass
+                    filter_mic.type = "bandpass";
+                } else if (selectedFrequencyRange == "high") { // highpass
+                    filter_mic.type = "highpass";
+                } else { // no filter, all frequencies pass through
+                    filter_mic.type = "allpass";
+                }
+            }, 100);
             
-            // change filter type according to selected frequency range
-            // NOTE: filtered audio (filter node) is only read by the realtime analyzer, only the unchanged audio (micSource node) comes trough the speakers (destination)
-            if (selectedFrequencyRange == "low") { // lowpass
-                filter.type = "lowpass";
-            } else if (selectedFrequencyRange == "mid") { // bandpass
-                filter.type = "bandpass";
-            } else if (selectedFrequencyRange == "high") { // highpass
-                filter.type = "highpass";
-            } else { // no filter, all frequencies pass through
-                filter.type = "allpass";
-            }
-
             // connect stuff together
-            MicSource.connect(filter).connect(realtimeAnalyzerNode);
-            MicSource.connect(filter).connect(analyser); // analyser connection for SCT check readability
-            // MicSource.connect(audioContext.destination); //* Uncomment to monitor mic audio
+            MicSource.connect(filter_mic).connect(realtimeAnalyzerNode);
+            MicSource.connect(filter_mic).connect(analyser); // analyser connection for SCT check readability
+
+            //MicSource.connect(filter_mic).connect(audioContext.destination); //* Uncomment to monitor mic audio that is being analyzed
 
             startCheckingAudioPlaying(); // SCT check for mic audio stream
 
@@ -202,8 +208,6 @@ inputDevice.addEventListener("change", () => {
                     console.log('BPM_STABLE', event.data.result);
                 }*/
 
-                /**
-                * * code commented for dependency interferance while debugging
                 tempo = event.data.result.bpm[0].tempo;
                 
                 if (tempo > 0) {
@@ -215,11 +219,31 @@ inputDevice.addEventListener("change", () => {
                     document.getElementById("mic-loader-container").setAttribute("hidden", true);
                     document.getElementById("mic-loader-label").setAttribute("hidden", true);
                 }
-                */
             };
         })
         .catch((err) => {
             console.error("Error getting microphone input:", err);
+
+            // error notification
+            toastr["error"]("Error getting microphone input. Check console for error details", "Microphone Error")
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
         });
     }
 });
@@ -228,9 +252,22 @@ export function micStrobe() {
     let lastMicBPMValue = micBPM_text.value; // default value
     var ranTimes = 0;
 
-    if (changed == false) {
-        micBPM_interval = (60 / lastMicBPMValue) * 1000;
-        micStrobeTimeout = setInterval(() => {
+    micBPM_interval = (60 / lastMicBPMValue) * 1000;
+    micStrobeTimeout = setInterval(() => {
+        // set the analyser to get frequency data from the filtered audio
+        analyser.getByteFrequencyData(dataArray);
+
+        // loop over data and calculate average amplitude
+        let averageAmplitude = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+            averageAmplitude += dataArray[i];
+        }
+        averageAmplitude /= dataArray.length;
+
+        console.log(averageAmplitude);
+
+        // if average amplitude is above a certain threshold, then there is a beat
+        if (averageAmplitude > threshold) {
             // trigger strobe
             overlay.style.visibility = "visible";
 
@@ -240,32 +277,15 @@ export function micStrobe() {
             }, duration);
 
             ranTimes++;
-            console.log("Device: " + inputDevice_text + " | BPM: " + lastMicBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
-        }, micBPM_interval);
-    }
+            console.log("Device: " + inputDevice_text + " | BPM: " + lastMicBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Filter: " + filter_mic.type);
 
-    micBPM_text.addEventListener("input", () => { // TODO: test function with event listener firing using "input" instead of "change"
-        if (isActive == true) { // only runs when auto mode is ON
-            clearInterval(micStrobeTimeout); // kill unchanged strobe
-            changed = true;
-            lastMicBPMValue = micBPM_text.value;
+            if (micBPM_text.value != lastMicBPMValue) { // if micBPM_text value changes
+                clearInterval(micStrobeTimeout); // clear interval
 
-            clearInterval(micStrobeTimeout_changed); // so that old value doesn't interfere with new value
-            micBPM_interval = (60 / lastMicBPMValue) * 1000;
-            micStrobeTimeout_changed = setInterval(() => {
-                // trigger strobe
-                overlay.style.visibility = "visible";
-
-                // kill strobe once the strobe duration expires
-                setTimeout(() => {
-                    overlay.style.visibility = "hidden";
-                }, duration);
-                
-                ranTimes++;
-                console.log("Device: " + inputDevice_text + " | BPM: " + lastMicBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
-            }, micBPM_interval);
+                micStrobe(); // run function again with updated values
+            }
         }
-    });
+    }, micBPM_interval);
 }
 
 export function trackStrobe() {
@@ -387,7 +407,6 @@ export function killAutoModeStrobes() {
     clearInterval(trackStrobeTimeout_changed);
 
     clearInterval(micStrobeTimeout);
-    clearInterval(micStrobeTimeout_changed);
 
     changed = false;
 }
