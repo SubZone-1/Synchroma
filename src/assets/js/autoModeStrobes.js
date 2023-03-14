@@ -279,7 +279,6 @@ export function trackStrobe() {
             // NOTE: filtered audio (filter node) is only read by the analyser, only the unchanged audio (TrackSource node) comes trough the speakers (destination)
             if (selectedFrequencyRange == "low") { // lowpass
                 filter.type = "lowpass";
-                filter.frequency.value = 200; // Hz
 
                 // audio processing nodes
                 TrackSource.connect(filter);
