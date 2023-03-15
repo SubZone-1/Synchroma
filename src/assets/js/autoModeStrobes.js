@@ -97,11 +97,24 @@ const TrackSource = audioContext.createMediaElementSource(document.getElementByI
 const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
 inputDevice.addEventListener("change", () => { // on selecting a different input device
-    killAutoModeStrobes(); // kill all strobes (intervals)
+    killAutoModeStrobes(); // kill all strobes (intervals) to prevent interference
+
     document.getElementById("AM-off").click(); // simulate OFF button click
-    document.getElementById("bpm").querySelector("span").innerHTML = "---"; // reset detected tempo text
+
     micBPM_text.value = 0; // reset mic BPM value
-    trackBPM_text.value = 0; // reset track BPM value
+
+    if (document.getElementById("internal-player").src == "") { // if there is no file loaded onto the player
+        document.getElementById("bpm").querySelector("span").innerHTML = "---"; // reset detected tempo text
+        document.getElementById("avg-amplitude").innerHTML = "0"; // reset avg amplitude text
+
+        // hide avg amplitude
+        document.getElementById("avg-amplitude-label").setAttribute("hidden", true);
+        document.getElementById("avg-amplitude").setAttribute("hidden", true);
+
+        trackBPM_text.value = 0; // reset track BPM value
+    } else { // if there is a file loaded onto the player
+        document.getElementById("bpm").querySelector("span").innerHTML = trackBPM_text.value; // set detected tempo text to track BPM
+    }
 
     if (inputDevice.selectedIndex == "1") { // if selected device is the integrated player
         // audio processing nodes
@@ -115,6 +128,10 @@ inputDevice.addEventListener("change", () => { // on selecting a different input
         document.getElementById("mic-loader-container").setAttribute("hidden", true);
         document.getElementById("mic-loader-label").setAttribute("hidden", true);
 
+        // show avg amplitude
+        document.getElementById("avg-amplitude-label").removeAttribute("hidden");
+        document.getElementById("avg-amplitude").removeAttribute("hidden");
+
         // show track BPM multipliers
         document.getElementById("BPM-multipliers-label").removeAttribute("hidden");
         document.getElementById("BPM-multipliers").removeAttribute("hidden");
@@ -127,6 +144,12 @@ inputDevice.addEventListener("change", () => { // on selecting a different input
         if (playerHidden == false) { // if player is visible
             document.getElementById("show-hide-a").click(); // hide internal player (simulated click)
         }
+
+        document.getElementById("bpm").querySelector("span").innerHTML = "---"; // reset detected tempo text
+
+        // hide avg amplitude
+        document.getElementById("avg-amplitude-label").setAttribute("hidden", true);
+        document.getElementById("avg-amplitude").setAttribute("hidden", true);
 
         // hide track BPM multipliers
         document.getElementById("BPM-multipliers-label").setAttribute("hidden", true);
@@ -178,7 +201,7 @@ inputDevice.addEventListener("change", () => { // on selecting a different input
             const MicMeterNode = webAudioPeakMeter.createMeterNode(MicSource, audioContext);
             webAudioPeakMeter.createMeter(MicAudioMeter, MicMeterNode, {});
 
-            const checkFrequencyRange = setInterval(() => {
+            const checkFrequencyRange = setInterval(() => { // TODO: try removing variable, leave only setInterval()
                 // change filter type according to selected frequency range
                 // NOTE: filtered audio (filter node) is only read by the realtime analyzer, only the unchanged audio (micSource node) comes trough the speakers (destination)
                 if (selectedFrequencyRange == "low") { // lowpass
@@ -218,6 +241,10 @@ inputDevice.addEventListener("change", () => { // on selecting a different input
                     // hide loader
                     document.getElementById("mic-loader-container").setAttribute("hidden", true);
                     document.getElementById("mic-loader-label").setAttribute("hidden", true);
+
+                    //show avg amplitude
+                    document.getElementById("avg-amplitude-label").removeAttribute("hidden");
+                    document.getElementById("avg-amplitude").removeAttribute("hidden");
                 }
             };
         })
@@ -265,6 +292,7 @@ export function micStrobe() {
         averageAmplitude /= dataArray.length;
 
         console.log(averageAmplitude);
+        document.getElementById("avg-amplitude").innerHTML = averageAmplitude;
 
         // if average amplitude is above a certain threshold, then there is a beat
         if (averageAmplitude > threshold) {
@@ -345,7 +373,7 @@ export function trackStrobe() {
             }
             averageAmplitude /= dataArray.length;
 
-            console.log(averageAmplitude);
+            document.getElementById("avg-amplitude").innerHTML = averageAmplitude;
 
             // if average amplitude is above a certain threshold, then there is a beat
             if (averageAmplitude > threshold) {

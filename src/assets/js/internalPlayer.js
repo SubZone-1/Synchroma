@@ -22,6 +22,7 @@ const beatDetect = new BeatDetect({
 
 const playerFile = document.getElementById("player-file");
 const player = document.getElementById("internal-player");
+const eject = document.getElementById("eject");
 
 let file;
 let fileURL;
@@ -65,9 +66,14 @@ playerFile.addEventListener("change", () => {
         document.getElementById("loader-label").setAttribute("hidden", true);
         document.getElementById("AM-on").removeAttribute("disabled");
 
+        document.getElementById("avg-amplitude-label").removeAttribute("hidden");
+        document.getElementById("avg-amplitude").removeAttribute("hidden");
+
         document.getElementById("BPM-multipliers-label").removeAttribute("hidden");
         document.getElementById("BPM-multipliers").removeAttribute("hidden");
         document.getElementById("bpm").querySelector("span").innerHTML = trackBPM;
+
+        eject.removeAttribute("hidden");
 
         toastr["success"]("The loaded track's BPM has finished calculating. You can now turn on the strobe.", "BPM Found")
 
@@ -116,6 +122,37 @@ playerFile.addEventListener("change", () => {
     });
 });
 
+eject.addEventListener("click", () => {
+    playerFile.value = ""; // remove file from input
+    player.src = ""; // remove file from player
+
+    document.getElementById('now-playing').setAttribute("hidden", true); // hide now playing
+    eject.setAttribute("hidden", true); // hide eject button
+
+    document.getElementById("bpm").querySelector("span").innerHTML = "---"; // reset detected tempo text
+    document.getElementById("avg-amplitude").innerHTML = "0"; // reset avg amplitude text
+
+    // hide avg amplitude
+    document.getElementById("avg-amplitude-label").setAttribute("hidden", true);
+    document.getElementById("avg-amplitude").setAttribute("hidden", true);
+
+    // hide track BPM multipliers
+    document.getElementById("BPM-multipliers-label").setAttribute("hidden", true);
+    document.getElementById("BPM-multipliers").setAttribute("hidden", true)
+
+    document.getElementById("AM-off").click(); // simulate OFF button click
+});
+
+document.getElementById("show-hide-a").addEventListener("click", () => {
+    if (document.getElementById("show-hide-a").innerHTML == "(HIDE)") {
+        document.getElementById("internal-player-container").setAttribute("hidden", true);
+        document.getElementById("show-hide-a").innerHTML = "(SHOW)";
+    } else {
+        document.getElementById("internal-player-container").removeAttribute("hidden");
+        document.getElementById("show-hide-a").innerHTML = "(HIDE)";
+    }
+});
+
 /* ----- SOUND COME THROUGH BPM multipliers ----- */
 document.getElementById("halfspeed").addEventListener("click", () => {
     trackBPM = trackBPM / 2;
@@ -128,16 +165,6 @@ document.getElementById("doublespeed").addEventListener("click", () => {
 
     document.getElementById("track-bpm").value = trackBPM; // hidden input
     document.getElementById("bpm").querySelector("span").innerHTML = trackBPM;
-});
-
-document.getElementById("show-hide-a").addEventListener("click", () => {
-    if (document.getElementById("show-hide-a").innerHTML == "(HIDE)") {
-        document.getElementById("internal-player-container").setAttribute("hidden", true);
-        document.getElementById("show-hide-a").innerHTML = "(SHOW)";
-    } else {
-        document.getElementById("internal-player-container").removeAttribute("hidden");
-        document.getElementById("show-hide-a").innerHTML = "(HIDE)";
-    }
 });
 
 export { file, trackBPM };
