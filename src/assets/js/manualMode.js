@@ -1,6 +1,3 @@
-// variable imports
-import { AM_turnOff_aux, MM_turnOff_aux } from "./offBtn.js";
-
 document.getElementById("manual").addEventListener("click", () => {
     // show manual mode
     document.getElementById("manual-mode-container").removeAttribute("hidden");
@@ -14,7 +11,7 @@ document.getElementById("manual").addEventListener("click", () => {
     manualBtn.setAttribute("disabled", "true");
     autoBtn.removeAttribute("disabled");
 
-    AM_turnOff_aux(); //turn off auto mode strobe
+    document.getElementById("AM-off").click(); // turn off auto mode strobe
 
     // styling
     manualBtn.classList.remove("text-gray-700");
@@ -42,7 +39,7 @@ document.getElementById("useManual-btn").addEventListener("click", () => {
     document.getElementById("useTap-btn").classList.add("text-text-gray-700");
     document.getElementById("useTap-btn").classList.add("hover:scale-1050");
 
-    MM_turnOff_aux();
+    document.getElementById("MM-off").click(); // turn off manual mode strobe
 
     BPMvalueSource = "manual";
 });
@@ -61,7 +58,7 @@ document.getElementById("useTap-btn").addEventListener("click", () => {
     document.getElementById("useManual-btn").classList.add("text-text-gray-700");
     document.getElementById("useManual-btn").classList.add("hover:scale-1050");
 
-    MM_turnOff_aux();
+    document.getElementById("MM-off").click(); // turn off manual mode strobe
 
     BPMvalueSource = "tap";
 });

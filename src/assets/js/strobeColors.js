@@ -243,3 +243,11 @@ yellow.addEventListener("click", () => {
         overlay.classList.add("bg-yellow-300");
     }
 });
+
+document.getElementById("static-cycle-a").addEventListener("click", () => {
+    if (document.getElementById("static-cycle-a").innerHTML == "(STATIC MODE)") {
+        document.getElementById("static-cycle-a").innerHTML = "(CYCLE MODE)";
+    } else {
+        document.getElementById("static-cycle-a").innerHTML = "(STATIC MODE)";
+    }
+});

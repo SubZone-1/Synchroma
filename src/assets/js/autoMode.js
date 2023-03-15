@@ -1,6 +1,3 @@
-// variable imports 
-import { MM_turnOff_aux } from "./offBtn.js";
-
 // node imports (Web Audio API)
 import { audioContext, TrackSource, analyser } from "./autoModeStrobes.js";
 
@@ -16,8 +13,8 @@ document.getElementById("auto").addEventListener("click", () => {
     // disable auto mode button (selected) and enable manual mode button
     autoBtn.setAttribute("disabled", "true");
     manualBtn.removeAttribute("disabled");
-
-    MM_turnOff_aux(); // turn off manual mode strobe
+    
+    document.getElementById("MM-off").click(); // turn off manual mode strobe
 
     // styling
     autoBtn.classList.remove("text-gray-700");

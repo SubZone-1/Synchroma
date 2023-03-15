@@ -14,6 +14,16 @@ var tapStrobeTimeout; // unchanged tap interval
 var tapStrobeTimeout_changed; // changed tap interval
 const overlay = document.getElementById("overlay"); // strobe overlay
 
+const colors = Array.from(document.getElementsByClassName("colorbtn")); // array with color buttons
+let currentColorIndex = 0;
+
+// add event listeners to each color button
+colors.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        currentColorIndex = index;
+    });
+});
+
 // strobe duration variable definition and event listener
 var duration = 100; // default value
 const slider = document.getElementById("MM-duration-slider");
@@ -44,6 +54,14 @@ export function manualStrobe() {
             setTimeout(() => {
                 overlay.style.visibility = "hidden";
             }, duration);
+
+            if (document.getElementById("static-cycle-a").innerHTML == "(CYCLE MODE)") { // if color cycle mode is active
+                // trigger click on current color
+                colors[currentColorIndex].click();
+    
+                // increment current color index
+                currentColorIndex = (currentColorIndex + 1) % colors.length;
+            }
             
             ranTimes++;
             console.log("BPM: " + lastManualBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes + " | Changed = " + changed);
@@ -87,6 +105,14 @@ export function manualStrobe() {
                 setTimeout(() => {
                     overlay.style.visibility = "hidden";
                 }, duration);
+
+                if (document.getElementById("static-cycle-a").innerHTML == "(CYCLE MODE)") { // if color cycle mode is active
+                    // trigger click on current color
+                    colors[currentColorIndex].click();
+        
+                    // increment current color index
+                    currentColorIndex = (currentColorIndex + 1) % colors.length;
+                }
                 
                 ranTimes++;
                 console.log("BPM: " + lastManualBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes + " | Changed = " + changed);
@@ -117,6 +143,14 @@ export function handleTapBPM() {
             setTimeout(() => {
                 overlay.style.visibility = "hidden";
             }, duration);
+
+            if (document.getElementById("static-cycle-a").innerHTML == "(CYCLE MODE)") { // if color cycle mode is active
+                // trigger click on current color
+                colors[currentColorIndex].click();
+    
+                // increment current color index
+                currentColorIndex = (currentColorIndex + 1) % colors.length;
+            }
             
             ranTimes++;
             console.log("BPM: " + lastTapBPMValue + " (source: " + BPMvalueSource + ") | Strobe duration: " + duration + "ms | " + "Times ran: " + ranTimes);

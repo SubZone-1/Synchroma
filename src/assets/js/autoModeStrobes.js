@@ -27,6 +27,16 @@ var changed = false; // default value; in order to activate the strobe before ev
 var isActive = false; // default value; in order to check if strobe is on or off
 var playerHidden = false; // default value; in order to check if internal player is hidden or visible
 
+const colors = Array.from(document.getElementsByClassName("colorbtn")); // array with color buttons
+let currentColorIndex = 0;
+
+// add event listeners to each color button
+colors.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        currentColorIndex = index;
+    });
+});
+
 // input device dropdown event listener (for device listing)
 inputDevice.addEventListener("change", event => {
     var inputDevice_option = event.target.selectedOptions[0]; // get selected device name (label)
@@ -304,6 +314,14 @@ export function micStrobe() {
                 overlay.style.visibility = "hidden";
             }, duration);
 
+            if (document.getElementById("static-cycle-a").innerHTML == "(CYCLE MODE)") { // if color cycle mode is active
+                // trigger click on current color
+                colors[currentColorIndex].click();
+    
+                // increment current color index
+                currentColorIndex = (currentColorIndex + 1) % colors.length;
+            }
+
             ranTimes++;
             console.log("Device: " + inputDevice_text + " | BPM: " + lastMicBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Filter: " + filter_mic.type);
 
@@ -384,6 +402,14 @@ export function trackStrobe() {
                 setTimeout(() => {
                     overlay.style.visibility = "hidden";
                 }, duration);
+
+                if (document.getElementById("static-cycle-a").innerHTML == "(CYCLE MODE)") { // if color cycle mode is active
+                    // trigger click on current color
+                    colors[currentColorIndex].click();
+        
+                    // increment current color index
+                    currentColorIndex = (currentColorIndex + 1) % colors.length;
+                }
                 
                 ranTimes++;
                 console.log("Device: " + inputDevice_text + " | BPM: " + lastTrackBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
@@ -421,6 +447,14 @@ export function trackStrobe() {
                     setTimeout(() => {
                         overlay.style.visibility = "hidden";
                     }, duration);
+
+                    if (document.getElementById("static-cycle-a").innerHTML == "(CYCLE MODE)") { // if color cycle mode is active
+                        // trigger click on current color
+                        colors[currentColorIndex].click();
+            
+                        // increment current color index
+                        currentColorIndex = (currentColorIndex + 1) % colors.length;
+                    }
                     
                     ranTimes++;
                     console.log("Device: " + inputDevice_text + " | BPM: " + lastTrackBPMValue + " | Strobe duration: " + duration + "ms | " + "Beat detection threshold: " + threshold + "% | " + "Times ran: " + ranTimes + " | Changed = " + changed + " | Filter: " + filter.type);
