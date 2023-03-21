@@ -211,7 +211,7 @@ inputDevice.addEventListener("change", () => { // on selecting a different input
             const MicMeterNode = webAudioPeakMeter.createMeterNode(MicSource, audioContext);
             webAudioPeakMeter.createMeter(MicAudioMeter, MicMeterNode, {});
 
-            const checkFrequencyRange = setInterval(() => { // TODO: try removing variable, leave only setInterval()
+            setInterval(() => {
                 // change filter type according to selected frequency range
                 // NOTE: filtered audio (filter node) is only read by the realtime analyzer, only the unchanged audio (micSource node) comes trough the speakers (destination)
                 if (selectedFrequencyRange == "low") { // lowpass

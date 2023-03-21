@@ -1143,12 +1143,12 @@ input:checked + .toggle-bg {
   margin-top: 0.75rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
 .mt-1 {
   margin-top: 0.25rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .mb-1 {
@@ -1803,14 +1803,14 @@ input:checked + .toggle-bg {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.text-themeOrange {
-  --tw-text-opacity: 1;
-  color: rgb(249 143 38 / var(--tw-text-opacity));
-}
-
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.text-themeOrange {
+  --tw-text-opacity: 1;
+  color: rgb(249 143 38 / var(--tw-text-opacity));
 }
 
 .text-gray-500 {
@@ -1997,6 +1997,12 @@ input:checked + .toggle-bg {
   background-color: rgb(14 159 110 / var(--tw-bg-opacity));
 }
 
+.hover\:scale-1050:hover {
+  --tw-scale-x: 1.050;
+  --tw-scale-y: 1.050;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .hover\:scale-1125:hover {
   --tw-scale-x: 1.125;
   --tw-scale-y: 1.125;
@@ -2006,12 +2012,6 @@ input:checked + .toggle-bg {
 .hover\:scale-1100:hover {
   --tw-scale-x: 1.100;
   --tw-scale-y: 1.100;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.hover\:scale-1050:hover {
-  --tw-scale-x: 1.050;
-  --tw-scale-y: 1.050;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2037,11 +2037,6 @@ input:checked + .toggle-bg {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-themeOrange:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 143 38 / var(--tw-bg-opacity));
 }
 
 .hover\:text-themeOrange:hover {
@@ -2254,8 +2249,8 @@ input:checked + .toggle-bg {
 }
 
 @media (min-width: 768px) {
-  .md\:h-\[500px\] {
-    height: 500px;
+  .md\:h-\[350px\] {
+    height: 350px;
   }
 }
 
@@ -2270,6 +2265,10 @@ input:checked + .toggle-bg {
 }
 
 @media (min-width: 1280px) {
+  .xl\:h-\[400px\] {
+    height: 400px;
+  }
+
   .xl\:w-\[800px\] {
     width: 800px;
   }

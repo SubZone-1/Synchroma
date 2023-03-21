@@ -5,8 +5,6 @@ import "./assets/css/extra.css";
 /* ---------- JS scripts ---------- */
 require("./assets/js/autoMode");
 require("./assets/js/autoModeStrobes");
-// TODO: fine-tune detection threshold and filters
-    //* TODO: add a gain node to amplify mic audio stream amplitude for better readability
 require("./assets/js/BeatDetect");
 require("./assets/js/durationSlider");
 require("./assets/js/frequencyRangeFocus");
@@ -23,7 +21,6 @@ require("./assets/js/strobeColors");
 require("./assets/js/tempoTap");
 require("./assets/js/thresholdSlider");
 require("./assets/js/warning");
-// TODO: use cookies to show popup only when the user visits the page for the first time
 
 /* ---------- Images ---------- */
 import symbol from "./assets/img/logo-V2/symbol.png";                               // 1
