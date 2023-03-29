@@ -1175,10 +1175,6 @@ input:checked + .toggle-bg {
   margin-left: 0px;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .ml-400px {
   margin-left: 400px;
 }
